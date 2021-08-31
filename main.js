@@ -31,6 +31,10 @@ class Trago{
     }
 }
 
+// Escuchar el Boton para iniciar el Ciclo do while
+document.getElementById("crearTragoBTN").addEventListener("click", hacerCicloTrago);
+
+function hacerCicloTrago() {
 // Ciclo do while
 do{ 
 // Entrar info
@@ -44,20 +48,24 @@ const  trago = new Trago (
         prompt("¿Va al Shaker/Coctelera? (S/N)")
     );
 
-
-
 //Agregar al array el nuevo trago recien creado
 listaTragos.push(trago);
+
+const tragoJSON = JSON.stringify(trago);
+
+localStorage.setItem(trago.nombre, tragoJSON);
 HacerOtro = prompt("¿Desea crear otro trago? (S/N)").toUpperCase();
 
 }while(HacerOtro != "N");
-
-//Array Ordenado por .sort()
-listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) //Lo busque en stackoverflow porque no podia hacer que funcione 
+//Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione 
+listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) 
 console.log(listaTragos);
+}
 
+// Escuchar el Boton para imprimir los tragos
+document.getElementById("verTragoBTN").addEventListener("click", verTragos);
 
-
+function verTragos() {
 //Obtenemos el nodo donde vamos a agregar los nuevos elementos
 let padre = document.getElementById("tragosImprimir");
 
@@ -67,4 +75,5 @@ for (trago of listaTragos) {
     let li = document.createElement("li");
     li.innerHTML = trago.imprimir();
     padre.appendChild(li);
+}
 }
