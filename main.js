@@ -1,7 +1,3 @@
-// mensaje bienvenida
-alert("Bienvenido al Simulador de Barman");
-document.write("<h1>Bienvenido al Simulador de Barman</h1><br><br>");
-
 //Array
 const listaTragos = [];
 
@@ -48,8 +44,7 @@ const  trago = new Trago (
         prompt("¿Va al Shaker/Coctelera? (S/N)")
     );
 
-// escribir info en el DOM
-trago.imprimir();
+
 
 //Agregar al array el nuevo trago recien creado
 listaTragos.push(trago);
@@ -60,3 +55,16 @@ HacerOtro = prompt("¿Desea crear otro trago? (S/N)").toUpperCase();
 //Array Ordenado por .sort()
 listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) //Lo busque en stackoverflow porque no podia hacer que funcione 
 console.log(listaTragos);
+
+
+
+//Obtenemos el nodo donde vamos a agregar los nuevos elementos
+let padre = document.getElementById("tragosImprimir");
+
+//Iteramos el array con for...of
+for (trago of listaTragos) {
+    //Creamos un nodo <li> y agregamos al padre en cada ciclo
+    let li = document.createElement("li");
+    li.innerHTML = trago.imprimir();
+    padre.appendChild(li);
+}
