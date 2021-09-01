@@ -15,20 +15,6 @@ class Trago{
         this.hielo = hielo.toUpperCase();
         this.shaker = shaker.toUpperCase();
     }
-    imprimir(){
-        document.write("<br><h2>Su trago " + this.nombre +"</h2><br><h3>Lleva los siguientes ingredientes:</h3><br>");
-        document.write("-" + this.bebidaBase + " cantidad(oz): " + this.cantidadBase + "<br>");
-        document.write("-" + this.bebidaComp + " cantidad(oz): " + this.cantidadComp + "<br>");
-        if ((this.shaker == "S") && (this.hielo == "S")){
-            document.write("-Vertir todo en el Shaker o Coctelera, agregar hielo y batir<br>");
-            document.write("-Listo el trago <b>"+this.nombre+"</b> esta listo para servir y beber<br>"); 
-        } else if ((this.shaker == "N") && (this.hielo == "S")){
-            document.write("-Agregue hielo a gusto<br>");
-            document.write("-Listo el trago <b>"+this.nombre+"</b> esta listo para servir y beber<br>");  
-        } else{
-            document.write("-Listo el trago <b>"+this.nombre+"</b> esta listo para servir y beber<br>");   
-        }
-    }
 }
 
 // Escuchar el Boton para iniciar el Ciclo do while
@@ -51,9 +37,11 @@ const  trago = new Trago (
 //Agregar al array el nuevo trago recien creado
 listaTragos.push(trago);
 
+//JSON y local storage del trago creado
 const tragoJSON = JSON.stringify(trago);
-
 localStorage.setItem(trago.nombre, tragoJSON);
+
+
 HacerOtro = prompt("¿Desea crear otro trago? (S/N)").toUpperCase();
 
 }while(HacerOtro != "N");
@@ -69,11 +57,37 @@ function verTragos() {
 //Obtenemos el nodo donde vamos a agregar los nuevos elementos
 let padre = document.getElementById("tragosImprimir");
 
-//Iteramos el array con for...of
-for (trago of listaTragos) {
-    //Creamos un nodo <li> y agregamos al padre en cada ciclo
-    let li = document.createElement("li");
-    li.innerHTML = trago.imprimir();
-    padre.appendChild(li);
-}
+var ls = top.localStorage,
+  n = ls.length,
+  i = 0,
+  key, value;
+
+console.log("Hay ", n, "items guardados en localStorage");
+
+for (; i < n; i++) {
+  key = ls.key(i);
+  const value = ls.getItem(key);
+  const propTrago = JSON.parse(value);
+  console.log(JSON.parse(value));
+  let ul = document.createElement("ul");
+    if ((propTrago.shaker == "S") && (propTrago.hielo == "S")){
+        ul.innerHTML = "<h3>Su trago " + key + "</h3> Ingredientes:<br></li>" + 
+        "<li>"+ propTrago.bebidaBase + " " + propTrago.cantidadBase + " oz</li>" + 
+        "<li>"+ propTrago.bebidaComp + " " + propTrago.cantidadComp + " oz</li>"+
+        "<li>Vertir todo en el Shaker o Coctelera, agregar hielo y batir</li>"+
+        "<li>Listo el trago <b>"+propTrago.nombre+"</b> esta listo para servir y beber</li><br><br>"; 
+    } else if ((propTrago.shaker == "N") && (propTrago.hielo == "S")){
+        ul.innerHTML = "<h3>Su trago " + key + "</h3> Ingredientes:<br></li>" + 
+        "<li>"+ propTrago.bebidaBase + " " + propTrago.cantidadBase + " oz</li>" + 
+        "<li>"+ propTrago.bebidaComp + " " + propTrago.cantidadComp + " oz</li>"+ 
+        "<li>Agregue hielo a gusto</li>"+
+        "<li>Listo el trago <b>"+propTrago.nombre+"</b> esta listo para servir y beber</li><br><br>";  
+    } else{
+        ul.innerHTML = "<h3>Su trago " + key + "</h3> Ingredientes:<br></li>" + 
+        "<li>"+ propTrago.bebidaBase + " " + propTrago.cantidadBase + " oz</li>" + 
+        "<li>"+ propTrago.bebidaComp + " " + propTrago.cantidadComp + " oz</li>"+
+        "<li>Listo el trago <b>"+propTrago.nombre+"</b> esta listo para servir y beber</li><br><br>";
+    }
+  padre.appendChild(ul);
+  }
 }
