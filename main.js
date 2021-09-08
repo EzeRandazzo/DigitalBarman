@@ -37,10 +37,6 @@ function hacerCicloTrago() {
     localStorage.setItem(trago.nombre, tragoJSON);
     
     alert(`Trago ${trago.nombre} Credo con EXITO`);
-
-  //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione 
-  listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) 
-  console.log(listaTragos);
 }
 
 // Escuchar el Boton para imprimir los tragos
@@ -50,12 +46,16 @@ function verTragos() {
 //Obtenemos el nodo donde vamos a agregar los nuevos elementos
 let padre = document.getElementById("tragosImprimir");
 
+document.getElementById("tragosImprimir").innerHTML= "";
+
 let ls = top.localStorage,
   n = ls.length,
   i = 0,
   key, value;
 
-console.log("Hay ", n, "items guardados en localStorage");
+console.log(`Hay ${n} items guardados en localStorage`);
+  //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione ls.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0))
+  console.log(ls);
 
 for (; i < n; i++) {
   key = ls.key(i);
