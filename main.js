@@ -2,7 +2,7 @@
 const listaTragos = [];
 
 //Reiniciar el ciclo
-var HacerOtro = "";
+let HacerOtro = "";
 
 // objeto
 class Trago{
@@ -12,42 +12,35 @@ class Trago{
         this.cantidadBase = cantidadBase;
         this.bebidaComp = bebidaComp;
         this.cantidadComp = cantidadComp;
-        this.hielo = hielo.toUpperCase();
-        this.shaker = shaker.toUpperCase();
+        this.hielo = hielo;
+        this.shaker = shaker;
     }
 }
 
-// Escuchar el Boton para iniciar el Ciclo do while document.getElementById("crearTragoBTN").addEventListener("click", hacerCicloTrago);
-
-function hacerCicloTrago() {
 // Ciclo for
+function hacerCicloTrago() {
+  // Entrar info
+  const  trago = new Trago (
+    document.getElementById("nuevoTrago").elements[0].value,
+    document.getElementById("nuevoTrago").elements[1].value,
+    document.getElementById("nuevoTrago").elements[2].value,
+    document.getElementById("nuevoTrago").elements[3].value,
+    document.getElementById("nuevoTrago").elements[4].value,
+    document.getElementById("nuevoTrago").elements[5].checked,
+    document.getElementById("nuevoTrago").elements[6].checked);
+    
+    //Agregar al array el nuevo trago recien creado
+    listaTragos.push(trago);
+    
+    //JSON y local storage del trago creado
+    const tragoJSON = JSON.stringify(trago);
+    localStorage.setItem(trago.nombre, tragoJSON);
+    
+    alert(`Trago ${trago.nombre} Credo con EXITO`);
 
-for (var i = 0; i <= 1; i++) {
-// Entrar info
-const  trago = new Trago (
-  document.getElementById("nuevoTrago").elements[0].value,
-  document.getElementById("nuevoTrago").elements[1].value,
-  document.getElementById("nuevoTrago").elements[2].value,
-  document.getElementById("nuevoTrago").elements[3].value,
-  document.getElementById("nuevoTrago").elements[4].value,
-  document.getElementById("nuevoTrago").elements[5].value,
-  document.getElementById("nuevoTrago").elements[6].value);
-
-//Agregar al array el nuevo trago recien creado
-listaTragos.push(trago);
-
-//JSON y local storage del trago creado
-const tragoJSON = JSON.stringify(trago);
-localStorage.setItem(trago.nombre, tragoJSON);
-
-
-alert(`Trago ${trago.nombre} Credo con EXITO`);
-
-}
-
-//Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione 
-listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) 
-console.log(listaTragos);
+  //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione 
+  listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0)) 
+  console.log(listaTragos);
 }
 
 // Escuchar el Boton para imprimir los tragos
@@ -57,7 +50,7 @@ function verTragos() {
 //Obtenemos el nodo donde vamos a agregar los nuevos elementos
 let padre = document.getElementById("tragosImprimir");
 
-var ls = top.localStorage,
+let ls = top.localStorage,
   n = ls.length,
   i = 0,
   key, value;
@@ -70,21 +63,28 @@ for (; i < n; i++) {
   const propTrago = JSON.parse(value);
   console.log(JSON.parse(value));
   let ul = document.createElement("ul");
-    if ((propTrago.shaker == "S") && (propTrago.hielo == "S")){
+    if ((propTrago.shaker == true) && (propTrago.hielo == true)){
         ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li> 
         <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
         <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li>
         <li>Vertir todo en el Shaker o Coctelera, agregar hielo y batir</li>
         <li>¡Listo! El trago ${propTrago.nombre} </b> esta listo para servir y beber</li>
         <br><br>`; 
-    } else if ((propTrago.shaker == "N") && (propTrago.hielo == "S")){
+      } else if ((propTrago.shaker == true) && (propTrago.hielo == false)){
+        ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
+        <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
+        <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li> 
+        <li>Agregue hielo a gusto</li>
+        <li>¡Listo! El trago <b> ${propTrago.nombre} </b> esta listo para servir y beber</li>
+        <br><br>`; 
+     } else if ((propTrago.shaker == false) && (propTrago.hielo == true)){
         ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
         <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
         <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li> 
         <li>Agregue hielo a gusto</li>
         <li>¡Listo! El trago <b> ${propTrago.nombre} </b> esta listo para servir y beber</li>
         <br><br>`;  
-    } else{
+    } else {
         ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
         <li>${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
         <li>${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li>

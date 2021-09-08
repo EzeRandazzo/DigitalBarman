@@ -11,6 +11,7 @@
         <!--Estilos Fonts-->
         <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <!--Estilos-->
+        <script defer src="main.js"></script>
         <style>
          body {text-align: center; font-family: 'Roboto', sans-serif;}
          h1{font-weight: 100;font-size: 4rem;}
@@ -43,8 +44,8 @@
                     <input type="number" id="cantBase" name="cantBase" placeholder="Cantidad bebida Base (Oz)"><br>
                     <input type="text" id="bebidaComp" name="bebidaComp" placeholder="Bebida Complementaria"><br>
                     <input type="number" id="cantComp" name="cantComp" placeholder="Cantidad bebida comp. (Oz)"><br>
-                    <label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo" value="hielo"><br>
-                    <label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker" value="shaker"><br>
+                    <label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo"><br>
+                    <label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker"><br>
                     <br><p>*Cargue los datos de su trago y presione el boton "Crear Trago" para crearlo.</p><br>
                     <input class="btn btn-primary" type="button" onclick="hacerCicloTrago()" value="Crear Trago">
                   </form>
@@ -63,7 +64,6 @@
         <hr>
         <br>             
         </div>
-        <script src="main.js"></script>
     </body>
 
 </html>
