@@ -5,10 +5,12 @@
         <title>DIGITAL BARMAN</title>
         <meta name="author" content="DG. Marcelo Ezequiel Randazzo">
         <meta name="description" content="Web app para catalogar tragos y armar tragos nuevos de manera interactiva">
-        <!--Bootstrap-->
+        <!--Bootstrap y JQuery-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-        <!--Estilos Fonts-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!--Fonts y Icons-->
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <!--Estilos-->
         <script defer src="main.js"></script>
@@ -17,49 +19,107 @@
          h1{font-weight: 100;font-size: 4rem;}
          h2{font-size: 1.7rem; font-weight: 900;}
          p{font-size: small;}
-         button, input, optgroup, select, textarea {
-             margin: 2px !important;
-             width: 80% !important;}
+         button, input, optgroup, select, textarea {margin: 2px !important; width: 80% !important;}
          input[type="checkbox"] {width: auto !important; text-align: left !important;}
-         .col-4, .col-7 {
+         input[type="radio"] {width: auto !important; text-align: left !important;}
+         .logo {background-color: black; padding: 5px; border-radius: 100%; color: white;}
+         .ingrup{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: inline-flex;}
+         .ingrup2{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: -webkit-box;}
+         li {text-align: left !important;}
+         .btn{width: auto !important;}
+         .hidden {display: none !important}
+         .card{
              box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
              transition: 0.3s;
-             border-radius: 5px;}
-             li {text-align: left !important;}
+             border-radius: 5px;
+             padding: 25px;
+             margin-bottom: 25px;
+            display: block;}
         </style>
+        <!--TODO
+            -Agregar hidden IDs a los prod
+            -Agregar NavBar
+            -Agregar carrusel de bebidas
+        -->
     </head>
 
     <body>
         <img src="http://randazzodesigner.com/barrahead2b.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
         <div class="container">
-            <h1>DIGITAL BARMAN</h1><br>
+            <h1>DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
-            <br><br>       
+            <br>
+            <diV class="card">
+                <button class="btn btn-primary" onclick="botonEsconderTrago()">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
+                <button class="btn btn-primary" onclick="botonEsconderBebida()">AGREGAR BEBIDA <i class="las la-wine-bottle"></i></button>
+                <button class="btn btn-primary" onclick="botonEsconderReceta()">VER RECETARIO <i class="las la-book-open"></i></button>
+            </diV>
+            <br> 
             <div class="row">
-                <div class="col-4">
+                <div class="col-5">
                  <br>
-                 <h2>Crear nuevo Trago</h2><br>
+                 <div class="card hidden" id="crearTrago">
+                 <h2>Crear nuevo Trago <i class="las la-glass-cheers"></i></h2><br>
                  <form id="nuevoTrago" >
                     <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago"><br>
                     <input type="text" id="bebidaBase" name="bebidaBase" placeholder="Bebida Base"><br>
                     <input type="number" id="cantBase" name="cantBase" placeholder="Cantidad bebida Base (Oz)"><br>
                     <input type="text" id="bebidaComp" name="bebidaComp" placeholder="Bebida Complementaria"><br>
                     <input type="number" id="cantComp" name="cantComp" placeholder="Cantidad bebida comp. (Oz)"><br>
-                    <label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo"><br>
-                    <label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker"><br>
+                    <input type="text" id="extra" name="extra" placeholder="Extras (ej. Menta, rodaja o pulpa de fruta)"><br>
+                    <textarea type="text" id="desc" name="desc" rows="3" placeholder="Descripcion Corta"></textarea><br>
+                    <div class="ingrup">
+                    <div class="ingrup"><label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo"></div>
+                    <div class="ingrup"><label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker"></div>
+                    </div>
+                    <br>
                     <br><p>*Cargue los datos de su trago y presione el boton "Crear Trago"</p><br>
-                    <input class="btn btn-primary" type="button" onclick="hacerCicloTrago()" value="Crear Trago">
+                    <input class="btn btn-primary" type="button" onclick="hacerCicloTrago()" value="Crear TRAGO">
                   </form>
+                  </div>
                   <br><br>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-7">
+                <div class="col-6">
                     <br>
-                    <h2>Recetario</h2>
+                    <div class="card hidden" id="agregarBebida">
+                    <h2>Agregar una Bebida <i class="las la-wine-bottle"></i></h2><br>
+                    <form id="nuevoTrago">
+                       <input type="text" id="nombreBotella" name="nombreBotella" placeholder="Nombre de la bebida"><br>
+                       <input type="text" id="marcaBotella" name="marcaBotella" placeholder="Marca de la bebida"><br>
+                       <input type="number" id="litrosMl" name="litrosMl" placeholder="Litros/ml de la botella"><br>
+                       <input type="number" id="gradAlcohol" name="gradAlcohol" placeholder="Graduacion Alcoholica"><br>
+                       <input type="url" id="imgBebida" name="imgBotella" placeholder="URL de la imagen de la botella"><br>
+                       <textarea type="text" id="descBotella" name="descBotella" rows="3" placeholder="Descripcion Corta"></textarea><br>
+                       <div class="ingrup">
+                       <div class="ingrup2"><label for="colBotella">Color del liquido<br> de la bebida: <br></label><br><input type="color" id="colBotella" name="colBotella" style="width: 36px !important;"></div><br>
+                       <div class="ingrup2">
+                           <h6>Gusto:</h6><br>
+                           <label for="acido">Acido</label><input type="radio" id="acido" name="sabor" value="acido"><br>
+                           <label for="dulce">Dulce</label><input type="radio" id="dulce" name="sabor" value="dulce"><br>
+                           <label for="amargo">Amargo</label><input type="radio" id="amargo" name="sabor" value="amargo"><br>
+                           <label for="anis">Anis</label><input type="radio" id="anis" name="sabor" value="anis"><br>
+                           <label for="otro">Otro</label><input type="radio" id="otro" name="sabor" value="otro">
+                        </div>
+                        </div>
+                       <br><p>*Cargue las caracteristicas de la bebida y presione el boton "Crear Bebida"</p><br>
+                       <br>
+                       <input class="btn btn-primary" type="button" onclick="hacerCicloBotella()" value="CREAR BEBIDA">
+                     </form>
+                     </div>
+                     <br><br>
+                   </div>
+                </div>
+                <div class="row">
+                <div class="col-12">
+                    <br>
+                    <div class="card hidden" id="cardRecetario">
+                    <h2>Recetario <i class="las la-book-open"></i></h2>
                     <br><br>
-                    <button class="btn btn-primary" id="verTragoBTN">Ver Trago/s</button>
+                    <button class="btn btn-primary" id="verTragoBTN">VER TRAGO/S</button>
                     <br><br>
-                    <div id="tragosImprimir"></div>
+                    <div class="row" id="tragosImprimir"></div>
+                    </div>
                 </div>
             </div>
         <hr>

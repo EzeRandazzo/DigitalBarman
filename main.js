@@ -1,19 +1,18 @@
 //Array
-const listaTragos = [];
-
-//Reiniciar el ciclo
-let HacerOtro = "";
+let listaTragos = [];
 
 // objeto
 class Trago{
-    constructor(nombre, bebidaBase, cantidadBase, bebidaComp, cantidadComp, hielo, shaker,) {
+    constructor(nombre, bebidaBase, cantidadBase, bebidaComp, cantidadComp, extra, hielo, shaker, desc,) {
         this.nombre = nombre;
         this.bebidaBase = bebidaBase;
         this.cantidadBase = cantidadBase;
         this.bebidaComp = bebidaComp;
         this.cantidadComp = cantidadComp;
+        this.extra = extra;
         this.hielo = hielo;
         this.shaker = shaker;
+        this.desc = desc;
     }
 }
 
@@ -26,71 +25,101 @@ function hacerCicloTrago() {
     document.getElementById("nuevoTrago").elements[2].value,
     document.getElementById("nuevoTrago").elements[3].value,
     document.getElementById("nuevoTrago").elements[4].value,
-    document.getElementById("nuevoTrago").elements[5].checked,
-    document.getElementById("nuevoTrago").elements[6].checked);
-    
-    //Agregar al array el nuevo trago recien creado
-    listaTragos.push(trago);
+    document.getElementById("nuevoTrago").elements[5].value,
+    document.getElementById("nuevoTrago").elements[6].checked,
+    document.getElementById("nuevoTrago").elements[7].checked,
+    document.getElementById("nuevoTrago").elements[8].value,
+    );
     
     //JSON y local storage del trago creado
     const tragoJSON = JSON.stringify(trago);
     localStorage.setItem(trago.nombre, tragoJSON);
     
-    alert(`Trago ${trago.nombre} Credo con EXITO`);
+    //Informar que se creo con exito el trago
+    alert(`Trago ${trago.nombre} creado con EXITO`);
 }
 
-// Escuchar el Boton para imprimir los tragos
+//Escuchar el Boton para imprimir los tragos
 document.getElementById("verTragoBTN").addEventListener("click", verTragos);
 
 function verTragos() {
-//Obtenemos el nodo donde vamos a agregar los nuevos elementos
-let padre = document.getElementById("tragosImprimir");
-
-document.getElementById("tragosImprimir").innerHTML= "";
-
-let ls = top.localStorage,
+  //Obtenemos el nodo donde vamos a agregar los nuevos elementos
+  let padre = document.getElementById("tragosImprimir");
+  document.getElementById("tragosImprimir").innerHTML= "";
+  let ls = top.localStorage,
   n = ls.length,
   i = 0,
   key, value;
 
-console.log(`Hay ${n} items guardados en localStorage`);
-  //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione ls.sort((a,b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0))
-  console.log(ls);
+  console.log(`Hay ${n} items guardados en localStorage`);
+  
+  listaTragos = [];
 
-for (; i < n; i++) {
-  key = ls.key(i);
-  const value = ls.getItem(key);
-  const propTrago = JSON.parse(value);
-  console.log(JSON.parse(value));
-  let ul = document.createElement("ul");
-    if ((propTrago.shaker == true) && (propTrago.hielo == true)){
-        ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li> 
-        <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
-        <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li>
-        <li>Vertir todo en el Shaker o Coctelera, agregar hielo y batir</li>
-        <li>¡Listo! El trago ${propTrago.nombre} </b> esta listo para servir y beber</li>
-        <br><br>`; 
-      } else if ((propTrago.shaker == true) && (propTrago.hielo == false)){
-        ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
-        <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
-        <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li> 
-        <li>Agregue hielo a gusto</li>
-        <li>¡Listo! El trago <b> ${propTrago.nombre} </b> esta listo para servir y beber</li>
-        <br><br>`; 
-     } else if ((propTrago.shaker == false) && (propTrago.hielo == true)){
-        ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
-        <li> ${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
-        <li> ${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li> 
-        <li>Agregue hielo a gusto</li>
-        <li>¡Listo! El trago <b> ${propTrago.nombre} </b> esta listo para servir y beber</li>
-        <br><br>`;  
-    } else {
-        ul.innerHTML = `<hr><h3>${key} </h3> <h4>Ingredientes:</h4></li>
-        <li>${propTrago.bebidaBase} ${propTrago.cantidadBase} oz</li>
-        <li>${propTrago.bebidaComp} ${propTrago.cantidadComp} oz</li>
-        <li>¡Listo! El trago <b> ${propTrago.nombre} </b> esta listo para servir y beber</li>
-        <br><br>`;
-    }
-  padre.appendChild(ul);
+  for (; i < n; i++) {
+    key = ls.key(i);
+    const value = ls.getItem(key);
+    const propTrago = JSON.parse(value);
+    //Agregar al array los tragos
+    listaTragos.push(propTrago);
+  }
+
+  //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione
+  listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0));
+  console.log(listaTragos);
+
+  e = 0;
+  for (; e < listaTragos.length; e++) {
+    const tragoCard = listaTragos[e];
+    console.log(listaTragos[e])
+    let card = document.createElement(`div`);
+    // Consulta las propiedades del trago
+    let hayTitulo = `<h3>${tragoCard.nombre}</h3>`;
+    let hayDesc = (tragoCard.desc.length > 2) ? `<p>${tragoCard.desc}</p><hr>` : `<hr>`;
+    let hayIng =   `<h4>Ingredientes:</h4>`;
+    let hayBbase = (tragoCard.bebidaBase.length > 2) ? `<li> ${tragoCard.bebidaBase} ${tragoCard.cantidadBase} oz</li>` : ``;
+    let hayBcomp = (tragoCard.bebidaComp.length > 2) ? `<li> ${tragoCard.bebidaComp} ${tragoCard.cantidadComp} oz</li>` : ``;
+    let hayHielo = (tragoCard.hielo == true) ? `<li>Agregar hielo a gusto</li>` : ``;
+    let hayShaker = (tragoCard.shaker == true) ? `<li>Vertir todo en el Shaker o Coctelera y batir</li>` : ``;
+    let hayExtra = (tragoCard.extra.length > 2) ? `<li>Agregar ${tragoCard.extra}</li>` : ``;
+    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombre} </b> esta listo para servir y beber</li><br><br>`;
+    //Suma las propiedades del Trago
+    const ContenidoCard = hayTitulo+hayDesc+hayIng+hayBbase+hayBcomp+hayHielo+hayShaker+hayExtra+hayCierre;
+    //Crea la Card
+    card.className = `card col-6`;
+    card.innerHTML = ContenidoCard;
+    padre.appendChild(card);
   }
 }
+
+//JQuery para ver o esconder los paneles
+function botonEsconderTrago(){
+  if($("#crearTrago").hasClass("hidden")){
+    $("#crearTrago").removeClass("hidden");
+  } else {
+    $("#crearTrago").addClass("hidden");
+  } 
+}
+function botonEsconderBebida(){
+  if($("#agregarBebida").hasClass("hidden")){
+    $("#agregarBebida").removeClass("hidden");
+  } else {
+    $("#agregarBebida").addClass("hidden");
+  } 
+}
+function botonEsconderReceta(){
+  if($("#cardRecetario").hasClass("hidden")){
+    $("#cardRecetario").removeClass("hidden");
+  } else {
+    $("#cardRecetario").addClass("hidden");
+  } 
+}
+
+//Intente reemplazarlo con una funcion general pero no pude hacerlo andar en el boton puse  onclick="botonEsconderReceta()"> por ejemplo pero no funciono
+// const idCard = "";
+// function botonEsconder(idCard){
+//   if($("#"+idCard).hasClass("hidden")){
+//     $("#"+idCard).removeClass("hidden");
+//   } else {
+//     $("#"+idCard).addClass("hidden");
+//   } 
+// }
