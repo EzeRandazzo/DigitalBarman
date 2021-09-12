@@ -114,7 +114,7 @@ function botonEsconderReceta(){
   } 
 }
 
-//Intente reemplazarlo con una funcion general pero no pude hacerlo andar en el boton puse  onclick="botonEsconderReceta()"> por ejemplo pero no funciono
+//Intente reemplazarlo con una funcion general pero no pude hacerlo andar en el boton puse onclick="botonEsconderReceta(cardRecetario)"> por ejemplo pero no funciono
 // const idCard = "";
 // function botonEsconder(idCard){
 //   if($("#"+idCard).hasClass("hidden")){
