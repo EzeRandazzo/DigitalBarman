@@ -91,34 +91,7 @@ function verTragos() {
   }
 }
 
-//JQuery para ver o esconder los paneles
-// function botonEsconderTrago(){
-//   if($("#crearTrago").hasClass("hidden")){
-//     $("#crearTrago").removeClass("hidden");
-//   } else {
-//     $("#crearTrago").addClass("hidden");
-//   } 
-// }
-// function botonEsconderBebida(){
-//   if($("#agregarBebida").hasClass("hidden")){
-//     $("#agregarBebida").removeClass("hidden");
-//   } else {
-//     $("#agregarBebida").addClass("hidden");
-//   } 
-// }
-// function botonEsconderReceta(){
-//   if($("#cardRecetario").hasClass("hidden")){
-//     $("#cardRecetario").removeClass("hidden");
-//   } else {
-//     $("#cardRecetario").addClass("hidden");
-//   } 
-// }
-
-//Intente reemplazarlo con una funcion general pero no pude hacerlo andar en el boton puse onclick="botonEsconderReceta(cardRecetario)"> por ejemplo pero no funciono
+//Usando Jquery para la botonera
 function botonEsconder(value){
-  if($("#"+value).hasClass("hidden")){
-    $("#"+value).removeClass("hidden");
-  } else {
-    $("#"+value).addClass("hidden");
-  } 
+  $("#"+value).fadeToggle();
 }

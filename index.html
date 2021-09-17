@@ -12,53 +12,43 @@
         <!--Fonts y Icons-->
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        <!--Estilos-->
+        <!--JavaScript-->
+        <script defer src="loading.js"></script>
         <script defer src="main.js"></script>
-        <style>
-         body {text-align: center; font-family: 'Roboto', sans-serif;}
-         h1{font-weight: 100;font-size: 4rem;}
-         h2{font-size: 1.7rem; font-weight: 900;}
-         p{font-size: small;}
-         button, input, optgroup, select, textarea {margin: 2px !important; width: 80% !important;}
-         input[type="checkbox"] {width: auto !important; text-align: left !important;}
-         input[type="radio"] {width: auto !important; text-align: left !important;}
-         .logo {background-color: black; padding: 5px; border-radius: 100%; color: white;}
-         .ingrup{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: inline-flex;}
-         .ingrup2{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: -webkit-box;}
-         li {text-align: left !important;}
-         .btn{width: auto !important;}
-         .hidden {display: none !important}
-         .card{
-             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-             transition: 0.3s;
-             border-radius: 5px;
-             padding: 25px;
-             margin-bottom: 25px;
-            display: block;}
-        </style>
+        <!--Estilos-->
+        <link rel="stylesheet" href="main.css">
         <!--TODO
             -Agregar hidden IDs a los prod
-            -Agregar NavBar
-            -Agregar carrusel de bebidas
+            -Agregar carrusel de bebidas traer de la API de ML
+            Traer bebidas de ML
         -->
     </head>
 
     <body>
-        <img src="http://randazzodesigner.com/barrahead2b.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
+     <div id="cargando">
+         <h1 style="margin-top: 125px;">DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
+         <h2>Cargando, aguarde por favor</h2>
+         <br>
+         <div class="card col-md-3" id="loadingCard">
+             <div id="barraLoading"></div>
+         </div>
+     </div>
+     <div id="webApp">
+        <img id="cabecera" src="/barrahead21.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
         <div class="container">
             <h1>DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
             <br>
             <diV class="card">
                 <button class="btn btn-primary" value="crearTrago" onclick="botonEsconder(this.value)">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
-                <button class="btn btn-primary" value="agregarBebida" onclick="botonEsconder(this.value)">AGREGAR BEBIDA <i class="las la-wine-bottle"></i></button>
+                <button class="btn btn-primary" value="agregarBebida" onclick="botonEsconder(this.value)">AGREGAR ELEMENTO <i class="las la-wine-bottle"></i><i class="las la-lemon"></i></button>
                 <button class="btn btn-primary" value="cardRecetario" onclick="botonEsconder(this.value)">VER RECETARIO <i class="las la-book-open"></i></button>
             </diV>
             <br> 
-            <div class="row">
+            <div class="row" id="crearTrago" style="display: none !important;">
                 <div class="col-5">
                  <br>
-                 <div class="card hidden" id="crearTrago">
+                 <div class="card">
                  <h2>Crear nuevo Trago <i class="las la-glass-cheers"></i></h2><br>
                  <form id="nuevoTrago" >
                     <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago"><br>
@@ -82,7 +72,17 @@
                 <div class="col-1"></div>
                 <div class="col-6">
                     <br>
-                    <div class="card hidden" id="agregarBebida">
+                    <div class="card">
+                        <h2>Nombre Trago</h2>
+                        <br>
+                        <img style="width: 83%;" src="tragoDemo.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="agregarBebida" style="display: none !important;">
+                <div class="col-5">
+                    <br>
+                    <div class="card">
                     <h2>Agregar una Bebida <i class="las la-wine-bottle"></i></h2><br>
                     <form id="nuevoTrago">
                        <input type="text" id="nombreBotella" name="nombreBotella" placeholder="Nombre de la bebida"><br>
@@ -108,12 +108,31 @@
                      </form>
                      </div>
                      <br><br>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <br>
+                    <div class="card">
+                        <h2>Agregar un extra <i class="las la-lemon"></i></h2><br>
+                        <form id="nuevoTrago">
+                           <input type="text" id="nombreExtra" name="nombreExtra" placeholder="Nombre del extra"><br>
+                           <input type="text" id="marcaExtra" name="marcaExtra" placeholder="Marca(si tiene)"><br>
+                           <input type="url" id="imgExtra" name="imgExtra" placeholder="URL de la imagen del Extra"><br>
+                           <textarea type="text" id="descExtra" name="descExtra" rows="3" placeholder="Descripcion Corta"></textarea><br>
+                           <div class="ingrup">
+                           <div class="ingrup2"><label for="colExtra">Color del <br>Extra: <br></label><br><input type="color" id="colExtra" name="colExtra" style="width: 36px !important;"></div><br>
+                            </div>
+                           <br><p>*Cargue las caracteristicas y presione el boton "Crear Extra"</p><br>
+                           <br>
+                           <input class="btn btn-primary" type="button" onclick="hacerCicloExtra()" value="CREAR EXTRA">
+                         </form>
+                         </div>
                    </div>
                 </div>
-                <div class="row">
+                <div class="row" id="cardRecetario" style="display: none !important;">
                 <div class="col-12">
                     <br>
-                    <div class="card hidden" id="cardRecetario">
+                    <div class="card">
                     <h2>Recetario <i class="las la-book-open"></i></h2>
                     <br><br>
                     <button class="btn btn-primary" id="verTragoBTN">VER TRAGO/S</button>
@@ -125,6 +144,7 @@
         <hr>
         <br>             
         </div>
+     </div>    
     </body>
 
 </html>
