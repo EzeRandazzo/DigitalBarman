@@ -95,3 +95,14 @@ function verTragos() {
 function botonEsconder(value){
   $("#"+value).fadeToggle();
 }
+
+
+//Usando Ajax y API Mercado Libre para traer las bebidas
+async function GetDatos(){
+  const response = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=bebidas');
+  const data = await response.json();
+  return data;
+}
+
+const baseDatos = GetDatos();
+console.log(baseDatos);

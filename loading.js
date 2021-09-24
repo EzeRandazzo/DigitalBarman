@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#barraLoading").animate({width:"100%"},5000, function() {
-        $("#cargando").fadeOut("slow").removeElementWithAnimation();
+        $("#cargando").fadeOut("slow").remove('slow');
     });
   });
 
