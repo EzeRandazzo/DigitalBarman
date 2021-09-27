@@ -96,12 +96,15 @@ function verTragos() {
 //Usando Ajax y API Mercado Libre para traer las bebidas
 let mostrar = "";
 let datos = "";
-let url = 'https://api.mercadolibre.com/sites/MLA/search?q=bebidas';
+let url = 'https://api.mercadolibre.com/sites/MLA/search?q=bebidas&limit=5';
 fetch(url, {
-  headers: {'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw'}
+  headers: {
+    'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw',
+  }
 })
 .then(response => response.json())
 .then(data => {
+  console.log(data);
   datos = data["results"]; 
   listaBebidas(datos);
 })
@@ -110,7 +113,7 @@ fetch(url, {
 function listaBebidas(datos){
   console.log(datos);
   datos.forEach(element => {
-    mostrar += `<ul><li>${element.title}</li></ul>`
+    mostrar += `<ul class="col-2 card bebidas"><li><img src="${element.thumbnail}"><br><br>${element.title}</li></ul>`
   });
   document.getElementById('bebidasML').innerHTML = mostrar;
 }
