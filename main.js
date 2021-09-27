@@ -102,12 +102,12 @@ fetch(url, {
 })
 .then(response => response.json())
 .then(data => {
-  datos = data; 
-  bebidasML(datos);
+  datos = data["results"]; 
+  listaBebidas(datos);
 })
 .catch(error => console.log(error))
 
-function bebidasML(datos){
+function listaBebidas(datos){
   console.log(datos);
   datos.forEach(element => {
     mostrar += `<ul><li>${element.title}</li></ul>`
