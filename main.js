@@ -91,18 +91,32 @@ function verTragos() {
   }
 }
 
+
+
+//Usando Ajax y API Mercado Libre para traer las bebidas
+let mostrar = "";
+let datos = "";
+let url = 'https://api.mercadolibre.com/sites/MLA/search?q=bebidas';
+fetch(url, {
+  headers: {'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw'}
+})
+.then(response => response.json())
+.then(data => {
+  datos = data; 
+  bebidasML(datos);
+})
+.catch(error => console.log(error))
+
+function bebidasML(datos){
+  console.log(datos);
+  datos.forEach(element => {
+    mostrar += `<ul><li>${element.title}</li></ul>`
+  });
+  document.getElementById('bebidasML').innerHTML = mostrar;
+}
+
+
 //Usando Jquery para la botonera
 function botonEsconder(value){
   $("#"+value).fadeToggle();
 }
-
-
-//Usando Ajax y API Mercado Libre para traer las bebidas
-async function GetDatos(){
-  const response = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=bebidas');
-  const data = await response.json();
-  return data;
-}
-
-const baseDatos = GetDatos();
-console.log(baseDatos);
