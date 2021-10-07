@@ -1,3 +1,6 @@
+//Llamar funcion para pantalla cargando
+window.onload = loading();
+
 //Array
 let listaTragos = [];
 
@@ -44,15 +47,15 @@ document.getElementById("verTragoBTN").addEventListener("click", verTragos);
 
 function verTragos() {
   //Obtenemos el nodo donde vamos a agregar los nuevos elementos
-  let padre = document.getElementById("tragosImprimir");
-  document.getElementById("tragosImprimir").innerHTML= "";
+  let padreVT = document.getElementById("tragosImprimir");
+  while (padreVT.firstChild) {
+    padreVT.removeChild(padreVT.firstChild);
+  }
   let ls = top.localStorage,
   n = ls.length,
   i = 0,
   key, value;
-
-  console.log(`Hay ${n} items guardados en localStorage`);
-  
+ 
   listaTragos = [];
 
   for (; i < n; i++) {
@@ -65,12 +68,10 @@ function verTragos() {
 
   //Array Ordenado por .sort() Lo busque en stackoverflow porque no podia hacer que funcione
   listaTragos.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0));
-  console.log(listaTragos);
 
   e = 0;
   for (; e < listaTragos.length; e++) {
     const tragoCard = listaTragos[e];
-    console.log(listaTragos[e])
     let card = document.createElement(`div`);
     // Consulta las propiedades del trago
     let hayTitulo = `<h3>${tragoCard.nombre}</h3>`;
@@ -86,40 +87,68 @@ function verTragos() {
     const ContenidoCard = hayTitulo+hayDesc+hayIng+hayBbase+hayBcomp+hayHielo+hayShaker+hayExtra+hayCierre;
     //Crea la Card
     card.className = `card col-6`;
-    card.innerHTML = ContenidoCard;
-    padre.appendChild(card);
+    card.insertAdjacentHTML ('afterbegin', ContenidoCard);
+    padreVT.appendChild(card);
   }
 }
-
-
 
 //Usando Ajax y API Mercado Libre para traer las bebidas
+let eleccionBebidas = "bebidas";
 let mostrar = "";
 let datos = "";
-let url = 'https://api.mercadolibre.com/sites/MLA/search?q=bebidas&limit=5';
-fetch(url, {
-  headers: {
-    'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw',
+let padreEB = document.getElementById("bebidasML");
+
+function llamadoML() {
+  let url = 'https://api.mercadolibre.com/sites/MLA/search?q='+eleccionBebidas;
+  fetch(url, {
+    headers: {
+      'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw',
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    datos = data["results"];
+    listaBebidas(datos);
+    $("#cargandoBebidas").hide();
+  })
+  .catch(error => console.log(error))
+  
+  function listaBebidas(datos){
+    datos.forEach(element => {
+      mostrar += `<div><div class="card bebidas"><img alt="${element.id}" src="${element.thumbnail}"><br><br><p>${element.title}</p><p>$${element.price}</p><button class="btn btn-outline-secondary btn-sm">+ Agregar</button></div></div>`
+    });
+    padreEB.insertAdjacentHTML('afterbegin', mostrar);
   }
-})
-.then(response => response.json())
-.then(data => {
-  console.log(data);
-  datos = data["results"]; 
-  listaBebidas(datos);
-})
-.catch(error => console.log(error))
-
-function listaBebidas(datos){
-  console.log(datos);
-  datos.forEach(element => {
-    mostrar += `<ul class="col-2 card bebidas"><li><img src="${element.thumbnail}"><br><br>${element.title}</li></ul>`
-  });
-  document.getElementById('bebidasML').innerHTML = mostrar;
 }
-
+//Iniciando funcion para traer todas las bebidas de ML
+window.onload = llamadoML();
 
 //Usando Jquery para la botonera
+function hideAll(){
+  $("#crearTrago").hide();
+ $("#cardRecetario").hide();
+ }
 function botonEsconder(value){
+  hideAll();
   $("#"+value).fadeToggle();
+}
+function tipoBebida(value){
+  eleccionBebidas = value;
+  mostrar = "";
+  $("#cargandoBebidas").show();
+  while (padreEB.firstChild) {
+    padreEB.removeChild(padreEB.firstChild);
+  }
+  llamadoML();
+}
+
+//Escuchar los botones para mover los productos
+let pos = 0;
+function bebIzq() {
+  let posicion = --pos*600;
+  padreEB.style.marginLeft = posicion+'px';
+}
+function bebDer() {
+  let posicion = ++pos*600;
+  padreEB.style.marginLeft = posicion+'px';
 }

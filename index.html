@@ -19,33 +19,73 @@
         <link rel="stylesheet" href="main.css">
         <!--TODO
             -Agregar hidden IDs a los prod
-            -Agregar carrusel de bebidas traer de la API de ML
-            Traer bebidas de ML
+            -Agregar sort de recetas por bebidas base
+            -Agregar buscador de recetas
+            -Agregar paginacion de recetas
+            -Agregar imagenes a recetas
+            -Hacer funcionar el boton de agregar trago
+            -Agregar botones Compartir (WAPP, FB, INSTA, TW)
+            -Agregar carrito y comprar con MP
         -->
     </head>
-
     <body>
      <div id="cargando">
          <h1 style="margin-top: 125px;">DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
-         <h2>Cargando, aguarde por favor</h2>
-         <br>
          <div class="card col-md-3" id="loadingCard">
              <div id="barraLoading"></div>
-         </div>
+         </div>           
+         <br>   
+         <h2>Cargando, aguarde por favor</h2>
+         <br>
      </div>
+
      <div id="webApp">
         <img id="cabecera" src="/barrahead21.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
         <div class="container">
             <h1>DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
             <br>
-            <diV class="card">
-                <button class="btn btn-primary" value="crearTrago" onclick="botonEsconder(this.value)">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
-                <button class="btn btn-primary" value="agregarBebida" onclick="botonEsconder(this.value)">AGREGAR ELEMENTO <i class="las la-wine-bottle"></i><i class="las la-lemon"></i></button>
-                <button class="btn btn-primary" value="cardRecetario" onclick="botonEsconder(this.value)">VER RECETARIO <i class="las la-book-open"></i></button>
+            <diV>
+                <button class="btn btn-dark" value="crearTrago" onclick="botonEsconder(this.value)">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
+                <button class="btn btn-dark" value="cardRecetario" onclick="botonEsconder(this.value)">VER RECETARIO <i class="las la-book-open"></i></button>
             </diV>
             <br> 
             <div class="row" id="crearTrago" style="display: none !important;">
+                <div class="card" style="overflow: hidden;">
+                    <h2>Seleccion de Bebidas <i class="las la-wine-bottle"></i></h2><br>
+                    <div style="display: inline-flex; transition: margin-left 300ms ease-in-out;" id="bebidasML"> </div>
+                    <img id="cargandoBebidas" src="loading.gif" style="width: 45px;" alt="Cargando">
+                    <div style="margin-top: -165px; width: 100%;">
+                        <button onclick="bebDer()" class="btn btn-dark btnBeb brillo" style="left: 1px; position: absolute;"> <i class="las la-chevron-left"></i> </button>
+                        <button onclick="bebIzq()" class="btn btn-dark btnBeb brillo" style="right: 1px; position: absolute;"> <i class="las la-chevron-right"></i> </button>
+                    </div>
+                    <div class="col-8" style="margin: auto; margin-top: 190px; margin-bottom: 20px;">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="bebidas">Destacadas</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="fernet">Fernet</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="campari">Campari</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="cynar">Cynar</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="gancia">Gancia</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="cinzano">Cinzano</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="bebidas_blancas_licores">Blancas</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="whiskies">Whiskies</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="licores">Licores</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="gin">Gin</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="vodka">Vodka</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="ron">Ron</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="tequila">Tequila</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="cognac">Cognac</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="brandy">Brandy</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="pisco">Pisco</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="cachaça">Cachaça</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="mezcal">Mezcal</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="sake">Sake</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="pulpas_de_fruta">Pulpas de Fruta</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="jugos">Jugos</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="gaseosas">Gaseosas</button>
+                    </div>
+                    <p>*Seleccione las bebidas que quiere agregar a su trago. Fuente: Mercado Libre Argentina</p>
+                </div>
+                    
                 <div class="col-5">
                  <br>
                  <div class="card">
@@ -56,6 +96,7 @@
                     <input type="number" id="cantBase" name="cantBase" placeholder="Cantidad bebida Base (Oz)"><br>
                     <input type="text" id="bebidaComp" name="bebidaComp" placeholder="Bebida Complementaria"><br>
                     <input type="number" id="cantComp" name="cantComp" placeholder="Cantidad bebida comp. (Oz)"><br>
+                    <input type="text" id="imagenTrago" name="imagenTrago" placeholder="URL de la imagen del trago"><br>
                     <input type="text" id="extra" name="extra" placeholder="Extras (ej. Menta, rodaja o pulpa de fruta)"><br>
                     <textarea type="text" id="desc" name="desc" rows="3" placeholder="Descripcion Corta"></textarea><br>
                     <div class="ingrup">
@@ -64,7 +105,7 @@
                     </div>
                     <br>
                     <br><p>*Cargue los datos de su trago y presione el boton "Crear Trago"</p><br>
-                    <input class="btn btn-primary" type="button" onclick="hacerCicloTrago()" value="Crear TRAGO">
+                    <input class="btn btn-light" type="button" onclick="hacerCicloTrago()" value="Crear TRAGO">
                   </form>
                   </div>
                   <br><br>
@@ -75,68 +116,18 @@
                     <div class="card">
                         <h2>Nombre Trago</h2>
                         <br>
-                        <img style="width: 83%;" src="tragoDemo.jpg">
+                        <img style="width: 83%;" src="tragoDemo.png">
                     </div>
                 </div>
+                
             </div>
-            <div class="row" id="agregarBebida" style="display: none !important;">
-                <div class="row col-12" id="bebidasML"></div>
-                <div class="col-5">
-                    <br>
-                    <div class="card">
-                    <h2>Agregar una Bebida <i class="las la-wine-bottle"></i></h2><br>
-                    <form id="nuevoTrago">
-                       <input type="text" id="nombreBotella" name="nombreBotella" placeholder="Nombre de la bebida"><br>
-                       <input type="text" id="marcaBotella" name="marcaBotella" placeholder="Marca de la bebida"><br>
-                       <input type="number" id="litrosMl" name="litrosMl" placeholder="Litros/ml de la botella"><br>
-                       <input type="number" id="gradAlcohol" name="gradAlcohol" placeholder="Graduacion Alcoholica"><br>
-                       <input type="url" id="imgBebida" name="imgBotella" placeholder="URL de la imagen de la botella"><br>
-                       <textarea type="text" id="descBotella" name="descBotella" rows="3" placeholder="Descripcion Corta"></textarea><br>
-                       <div class="ingrup">
-                       <div class="ingrup2"><label for="colBotella">Color del liquido<br> de la bebida: <br></label><br><input type="color" id="colBotella" name="colBotella" style="width: 36px !important;"></div><br>
-                       <div class="ingrup2">
-                           <h6>Gusto:</h6><br>
-                           <label for="acido">Acido</label><input type="radio" id="acido" name="sabor" value="acido"><br>
-                           <label for="dulce">Dulce</label><input type="radio" id="dulce" name="sabor" value="dulce"><br>
-                           <label for="amargo">Amargo</label><input type="radio" id="amargo" name="sabor" value="amargo"><br>
-                           <label for="anis">Anis</label><input type="radio" id="anis" name="sabor" value="anis"><br>
-                           <label for="otro">Otro</label><input type="radio" id="otro" name="sabor" value="otro">
-                        </div>
-                        </div>
-                       <br><p>*Cargue las caracteristicas de la bebida y presione el boton "Crear Bebida"</p><br>
-                       <br>
-                       <input class="btn btn-primary" type="button" onclick="hacerCicloBotella()" value="CREAR BEBIDA">
-                     </form>
-                     </div>
-                     <br><br>
-                </div>
-                <div class="col-2"></div>
-                <div class="col-5">
-                    <br>
-                    <div class="card">
-                        <h2>Agregar un extra <i class="las la-lemon"></i></h2><br>
-                        <form id="nuevoTrago">
-                           <input type="text" id="nombreExtra" name="nombreExtra" placeholder="Nombre del extra"><br>
-                           <input type="text" id="marcaExtra" name="marcaExtra" placeholder="Marca(si tiene)"><br>
-                           <input type="url" id="imgExtra" name="imgExtra" placeholder="URL de la imagen del Extra"><br>
-                           <textarea type="text" id="descExtra" name="descExtra" rows="3" placeholder="Descripcion Corta"></textarea><br>
-                           <div class="ingrup">
-                           <div class="ingrup2"><label for="colExtra">Color del <br>Extra: <br></label><br><input type="color" id="colExtra" name="colExtra" style="width: 36px !important;"></div><br>
-                            </div>
-                           <br><p>*Cargue las caracteristicas y presione el boton "Crear Extra"</p><br>
-                           <br>
-                           <input class="btn btn-primary" type="button" onclick="hacerCicloExtra()" value="CREAR EXTRA">
-                         </form>
-                         </div>
-                   </div>
-                </div>
                 <div class="row" id="cardRecetario" style="display: none !important;">
                 <div class="col-12">
                     <br>
                     <div class="card">
                     <h2>Recetario <i class="las la-book-open"></i></h2>
                     <br><br>
-                    <button class="btn btn-primary" id="verTragoBTN">VER TRAGO/S</button>
+                    <button class="btn btn-light" id="verTragoBTN">VER TRAGO/S</button>
                     <br><br>
                     <div class="row" id="tragosImprimir"></div>
                     </div>

@@ -1,10 +1,8 @@
-$(document).ready(function(){
+function loading(){
+    $("#loadingCard").append();
     $("#barraLoading").animate({width:"100%"},5000, function() {
-        $("#cargando").fadeOut("slow").remove('slow');
+        $("#cargando").fadeOut("slow").detach('slow');
+        $("#loadingCard").fadeOut("slow").detach('slow');
+        $("#barraLoading").animate({width:"1px"},1,)
     });
-  });
-
-
-  // >> Consigna: codifica animaciones concatenadas sobre uno o más elementos. Es decir que luego de finalizar una animación en su función callback, se especifica la llamada a otra animación.
-  // >>Aspectos a incluir en el entregable:
-  // Archivo HTML y archivo JavaScript referenciado, que incluya la definición de dos o más animaciones y sus respectivas funciones callback.
+  };
