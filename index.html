@@ -40,7 +40,7 @@
      </div>
 
      <div id="webApp">
-        <img id="cabecera" src="/barrahead21.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
+        <img id="cabecera" src="/img/barrahead21.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
         <div class="container">
             <h1>DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
@@ -51,10 +51,10 @@
             </diV>
             <br> 
             <div class="row" id="crearTrago" style="display: none !important;">
-                <div class="card" style="overflow: hidden;">
-                    <h2>Seleccion de Bebidas <i class="las la-wine-bottle"></i></h2><br>
+                <div class="card menu">
+                    <h2 class="h2dark">Seleccion de Bebidas <i class="las la-wine-bottle"></i></h2><br>
                     <div style="display: inline-flex; transition: margin-left 300ms ease-in-out;" id="bebidasML"> </div>
-                    <img id="cargandoBebidas" src="loading.gif" style="width: 45px;" alt="Cargando">
+                    <img id="cargandoBebidas" src="/img/loading.gif" style="width: 45px;" alt="Cargando">
                     <div style="margin-top: -165px; width: 100%;">
                         <button onclick="bebDer()" class="btn btn-dark btnBeb brillo" style="left: 1px; position: absolute;"> <i class="las la-chevron-left"></i> </button>
                         <button onclick="bebIzq()" class="btn btn-dark btnBeb brillo" style="right: 1px; position: absolute;"> <i class="las la-chevron-right"></i> </button>
@@ -88,7 +88,7 @@
                     
                 <div class="col-5">
                  <br>
-                 <div class="card">
+                 <div class="card brillo">
                  <h2>Crear nuevo Trago <i class="las la-glass-cheers"></i></h2><br>
                  <form id="nuevoTrago" >
                     <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago"><br>
@@ -113,10 +113,10 @@
                 <div class="col-1"></div>
                 <div class="col-6">
                     <br>
-                    <div class="card">
+                    <div class="card brillo">
                         <h2>Nombre Trago</h2>
                         <br>
-                        <img style="width: 83%;" src="tragoDemo.png">
+                        <img style="width: 83%;" src="/img/tragoDemo.png">
                     </div>
                 </div>
                 

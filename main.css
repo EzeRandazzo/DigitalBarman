@@ -2,8 +2,7 @@ body {text-align: center; font-family: 'Roboto', sans-serif; overflow-x: clip;ba
 h1{font-weight: 100;font-size: 5rem;text-shadow: 1px 1px 10px rgb(255 0 0); color: rgb(255, 255, 255);}
 h2{font-size: 1.8rem;
     font-weight: 200;
-    color: #72abff73;
-    text-shadow: 1px 1px 5px rgb(0 140 255);}
+    color: #72abff73;}
 p{font-size: small;}
 button, input, optgroup, select, textarea {margin: 2px !important; width: 80% !important; background-color: black; color: cadetblue;}
 input[type="checkbox"] {width: auto !important; text-align: left !important;}
@@ -15,6 +14,7 @@ li{text-align: left !important;}
 .btn{width: auto !important;}
 .brillo{box-shadow: rgb(0 140 255 / 42%) 0 1px 10px;}
 .hidden {display: none !important}
+.h2dark{text-shadow: 1px 1px 10px rgb(0 0 0); color: rgb(255, 255, 255);}
 #cargando{
     background-color: #202020;
     position: absolute;
@@ -54,6 +54,7 @@ li{text-align: left !important;}
     color: aliceblue;
     font-size:small;
     text-align: center !important;
+    box-shadow: 1px 1px 10px rgb(0 0 0);
 }
 .bebidas img{
     width: 150px;
@@ -75,4 +76,10 @@ li{text-align: left !important;}
     border-radius: 100%;
     width: 50px !important;
     height: 50px !important;
+}
+
+.menu{
+    overflow: hidden;
+    background-image: url(/img/textura_madera.jpg);
+    background-size: cover;
 }
