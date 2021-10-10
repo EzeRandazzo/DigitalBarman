@@ -83,3 +83,37 @@ li{text-align: left !important;}
     background-image: url(/img/textura_madera.jpg);
     background-size: cover;
 }
+.bebidaAgregada{
+    width: 80%;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 80px;
+    list-style: none;
+    padding: 10px !important;
+    background-color: rgb(28 28 28);
+    font-weight: 400;
+    color: aliceblue;
+    font-size: small;
+    text-align: left !important;
+    box-shadow: 1px 1px 10px rgb(0 0 0);
+    display: -webkit-inline-box !important;
+}
+
+.bebidaAgregada img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+}
+
+.bebidaAgregada p {
+    width: 25ch;
+    height: 2ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: pre;
+    padding-left: 10px;
+    margin: auto;
+}

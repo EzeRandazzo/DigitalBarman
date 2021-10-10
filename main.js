@@ -115,7 +115,17 @@ function llamadoML() {
   
   function listaBebidas(datos){
     datos.forEach(element => {
-      mostrar += `<div><div class="card bebidas"><img alt="${element.id}" src="${element.thumbnail}"><br><br><p>${element.title}</p><p>$${element.price}</p><button class="btn btn-outline-secondary btn-sm">+ Agregar</button></div></div>`
+      mostrar += `<div>
+       <div class="card bebidas" id="${element.id}">
+         <img alt="${element.title}" src="${element.thumbnail}">
+         <br><br>
+         <p>${element.title}</p>
+         <p>$${element.price}</p>
+         <button class="btn btn-outline-secondary btn-sm" onclick="agregarBebida(this.value)" value="${element.id}">
+           + Agregar
+         </button>
+       </div>
+      </div>`
     });
     padreEB.insertAdjacentHTML('afterbegin', mostrar);
   }
@@ -132,6 +142,8 @@ function botonEsconder(value){
   hideAll();
   $("#"+value).fadeToggle();
 }
+
+//Escuchar la categoria de bebidas a mostrar
 function tipoBebida(value){
   eleccionBebidas = value;
   mostrar = "";
@@ -151,4 +163,46 @@ function bebIzq() {
 function bebDer() {
   let posicion = ++pos*600;
   padreEB.style.marginLeft = posicion+'px';
+}
+
+//Agregar bebida al trago
+
+let idBebidaElegida = "";
+let cardBebidaElegida = "";
+let datosBeb = "";
+let padreTragoB = document.getElementById("bebidasTrago");
+
+function agregarAlTrago() {
+  let url = 'https://api.mercadolibre.com/items/'+idBebidaElegida;
+  fetch(url, {
+    headers: {
+      'Authorization': 'Bearer $gPQ0LHRFfOFCksHC6vY6zmz7CyAgCmBw',
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    datosBeb = data;
+    console.log(datosBeb);
+    bebidaParaTrago(datosBeb);
+  })
+  .catch(error => console.log(error))
+  
+  function bebidaParaTrago(datosBeb){
+    cardBebidaElegida += `<div>
+       <div class="card bebidaAgregada" id="${datosBeb.id}">
+         <button class="btn btn-outline-secondary btn-sm">x</button>
+         <img alt="${datosBeb.title}" src="${datosBeb.thumbnail}">
+         <p>${datosBeb.title}</p><br><p>$${datosBeb.price}</p>
+       </div>
+      </div>` ;
+    padreTragoB.insertAdjacentHTML('afterbegin', cardBebidaElegida);
+    cardBebidaElegida = "";
+    datosBeb = "";
+  }
+}
+
+//Escuchar boton + Agregar
+function agregarBebida(value){
+  idBebidaElegida = value;
+  agregarAlTrago();
 }
