@@ -25,11 +25,12 @@
             -Agregar imagenes a recetas
             -Agregar botones Compartir (WAPP, FB, INSTA, TW)
             -Agregar carrito y comprar con MP
+            -Hacer funcionar boton eliminar bebida del trago
         -->
     </head>
     <body>
      <div id="cargando">
-         <h1 style="margin-top: 125px;">DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
+         <h1><i class="las la-cocktail logo"></i></h1><br>
          <div class="card col-md-3" id="loadingCard">
              <div id="barraLoading"></div>
          </div>           
@@ -39,9 +40,8 @@
      </div>
 
      <div id="webApp">
-        <img id="cabecera" src="/img/barrahead21.jpg" style="width: 100%; height: auto; margin-bottom: 20px;" alt="DIGITAL BARMAN CABECERA">
         <div class="container">
-            <h1>DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
+            <h1  style="margin-top: 125px;">DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
             <br>
             <diV>
@@ -58,7 +58,7 @@
                         <button onclick="bebDer()" class="btn btn-dark btnBeb brillo" style="left: 1px; position: absolute;"> <i class="las la-chevron-left"></i> </button>
                         <button onclick="bebIzq()" class="btn btn-dark btnBeb brillo" style="right: 1px; position: absolute;"> <i class="las la-chevron-right"></i> </button>
                     </div>
-                    <div class="col-8" style="margin: auto; margin-top: 190px; margin-bottom: 20px;">
+                    <div class="col-md-8" style="margin: auto; margin-top: 190px; margin-bottom: 20px;">
                         <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="bebidas">Destacadas</button>
                         <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="fernet">Fernet</button>
                         <button class="btn btn-outline-secondary btn-sm" onclick="tipoBebida(this.value)" value="campari">Campari</button>
@@ -85,17 +85,16 @@
                     <p>*Seleccione las bebidas que quiere agregar a su trago. Fuente: Mercado Libre Argentina</p>
                 </div>
                     
-                <div class="col-5">
+                <div class="col-md-5">
                  <br>
                  <div class="card brillo">
                  <h2>Crear nuevo Trago <i class="las la-glass-cheers"></i></h2><br>
-                 <form id="nuevoTrago" >
+                 <form id="nuevoTragoTitulo" >
                     <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago"><br>
+                </form>
                     <div id="bebidasTrago"></div>
-                    <!-- <input type="text" id="bebidaBase" name="bebidaBase" placeholder="Bebida Base"><br>
-                    <input type="number" id="cantBase" name="cantBase" placeholder="Cantidad bebida Base (Oz)"><br>
-                    <input type="text" id="bebidaComp" name="bebidaComp" placeholder="Bebida Complementaria"><br>
-                    <input type="number" id="cantComp" name="cantComp" placeholder="Cantidad bebida comp. (Oz)"><br>-->
+                    <div id="bebidasTragoInfo" style="display: none"></div>
+                <form id="nuevoTrago" >
                     <input type="text" id="imagenTrago" name="imagenTrago" placeholder="URL de la imagen del trago"><br>
                     <input type="text" id="extra" name="extra" placeholder="Extras (ej. Menta, rodaja o pulpa de fruta)"><br>
                     <textarea type="text" id="desc" name="desc" rows="3" placeholder="Descripcion Corta"></textarea><br>
@@ -103,26 +102,39 @@
                     <div class="ingrup"><label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo"></div>
                     <div class="ingrup"><label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker"></div>
                     </div>
+                    <label>Color del trago</label><input type="color" id="colorTrago" name="colorTrago" value="#A41919" style="width: 36px !important;">
                     <br>
                     <br><p>*Cargue los datos de su trago y presione el boton "Crear Trago"</p><br>
-                    <input class="btn btn-light" type="button" onclick="hacerCicloTrago()" value="Crear TRAGO">
+                    <input class="btn btn-light" type="button" onclick="hacerCicloTrago()" value="Guardar TRAGO">
                   </form>
                   </div>
                   <br><br>
                 </div>
-                <div class="col-1"></div>
-                <div class="col-6">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
                     <br>
                     <div class="card brillo">
-                        <h2>Nombre Trago</h2>
+                        <h2>Vista previa del Trago</h2>
                         <br>
-                        <img style="width: 83%;" src="/img/tragoDemo.png">
+                        <div>                            
+                            <div id="copaDiv">
+                                <img id="copa" style="width: 100%;" src="/img/copa.png">
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <p>*Seleccione el tipo de recipiente para servir el trago</p><br>
+                            <button class="btn btn-outline-secondary" onclick="tipoContenedor(this.value)" value="/img/copa.png">Copa</button>
+                            <button class="btn btn-outline-secondary" onclick="tipoContenedor(this.value)" value="/img/vasoAlto.png">Vaso alto</button>
+                            <button class="btn btn-outline-secondary" onclick="tipoContenedor(this.value)" value="/img/vasoBajo.png">Vaso bajo</button>
+                        </div>
+                        <br>
                     </div>
                 </div>
                 
             </div>
                 <div class="row" id="cardRecetario" style="display: none !important;">
-                <div class="col-12">
+                <div class="col-md-12">
                     <br>
                     <div class="card">
                     <h2>Recetario <i class="las la-book-open"></i></h2>

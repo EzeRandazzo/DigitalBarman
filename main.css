@@ -1,26 +1,90 @@
-body {text-align: center; font-family: 'Roboto', sans-serif; overflow-x: clip;background-color: #202020;}
-h1{font-weight: 100;font-size: 5rem;text-shadow: 1px 1px 10px rgb(255 0 0); color: rgb(255, 255, 255);}
-h2{font-size: 1.8rem;
+body {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: clip;
+    background-color: #202020;
+}
+h1{
+    font-weight: 100;
+    font-size: 5rem;
+    text-shadow: 1px 1px 10px rgb(255 0 0);
+    color: rgb(255, 255, 255);
+    animation: tecnoLuces 5s infinite;
+}
+
+@keyframes tecnoLuces {
+  50% {
+      text-shadow: 1px 1px 30px rgb(21, 255, 0);
+    }
+}
+
+h2{
+    font-size: 1.8rem;
     font-weight: 200;
-    color: #72abff73;}
-p{font-size: small;}
-button, input, optgroup, select, textarea {margin: 2px !important; width: 80% !important; background-color: black; color: cadetblue;}
-input[type="checkbox"] {width: auto !important; text-align: left !important;}
-input[type="radio"] {width: auto !important; text-align: left !important;}
-.logo {padding: 5px; color: rgb(255, 255, 255);}
-.ingrup{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: inline-flex;}
-.ingrup2{border-radius: 3px; padding: 5px; margin: 5px; border: 1px solid rgb(0, 0, 0); width: fit-content;display: -webkit-box;}
-li{text-align: left !important;}
-.btn{width: auto !important;}
-.brillo{box-shadow: rgb(0 140 255 / 42%) 0 1px 10px;}
-.hidden {display: none !important}
-.h2dark{text-shadow: 1px 1px 10px rgb(0 0 0); color: rgb(255, 255, 255);}
+    color: #72abff73;
+}
+p{
+    font-size: small;
+}
+button, input, optgroup, select, textarea {
+    margin: 2px !important;
+    width: 80% !important;
+    background-color: black;
+    color: cadetblue;
+}
+input[type="checkbox"] {
+    width: auto !important;
+    text-align: left !important;
+}
+input[type="radio"] {
+    width: auto !important;
+    text-align: left !important;
+}
+.logo {
+    padding: 5px;
+    color: rgb(255, 255, 255);
+}
+.ingrup{
+    border-radius: 3px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    width: fit-content;
+    display: inline-flex;
+}
+.ingrup2{
+    border-radius: 3px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid rgb(0, 0, 0);
+    width: fit-content;
+    display: -webkit-box;
+}
+li{
+    text-align: left !important;
+}
+.btn{
+    width: auto !important;
+}
+.brillo{
+    box-shadow: rgb(0 140 255 / 42%) 0 1px 10px;
+}
+.hidden {
+    display: none !important
+}
+.h2dark{
+    text-shadow: 1px 1px 10px rgb(0 0 0);
+    color: rgb(255, 255, 255);
+}
+
 #cargando{
     background-color: #202020;
     position: absolute;
     width: 100%;
     height: 100%;
     z-index:1;
+    top:0px;
+    padding-top:125px;
 }
 #barraLoading{
     background-color:rgb(255, 0, 0);
@@ -97,12 +161,12 @@ li{text-align: left !important;}
     font-size: small;
     text-align: left !important;
     box-shadow: 1px 1px 10px rgb(0 0 0);
-    display: -webkit-inline-box !important;
+    display: inline-table;
 }
 
 .bebidaAgregada img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 100%;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
@@ -112,8 +176,23 @@ li{text-align: left !important;}
     height: 2ch;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: block;
+    display: inline-block;
     white-space: pre;
     padding-left: 10px;
+    margin: auto;
+    position: absolute;
+    right: 15px;
+}
+
+.headerTrago{
+    width: 100% !important;
+    height: 300px !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: bottom !important;
+}
+
+#copaDiv {
+    width: 83%;
     margin: auto;
 }
