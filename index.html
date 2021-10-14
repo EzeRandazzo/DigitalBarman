@@ -24,6 +24,7 @@
             -Agregar paginacion de recetas
             -Agregar botones Compartir (WAPP, FB, INSTA, TW)
             -Agregar carrito y comprar con MP
+            -Editar trago de la biblioteca
         -->
     </head>
     <body>  
@@ -37,13 +38,13 @@
          <br>
      </div>
 
-     <div id="alertas" style="display: none !important;" class="card brillo">
-         <h2 id="tituloAlerta"></h2>
-         <br>
-         <hr>
-         <br>
-         <p id="parrafoAlerta"></p>
-         <button class="btn btn-dark" value="alertas" onclick="esconder(this.value)">Entendido <i class="las la-glass-cheers"></i></button>
+     <div id="alertas" style="display: none !important;">
+        <div class="card brillo alertas"> 
+            <h2 id="tituloAlerta"></h2>
+            <br><hr><br>
+            <p id="parrafoAlerta"></p>
+            <button class="btn btn-dark" value="alertas" onclick="esconder(this.value)">Entendido</button>
+         </div>
      </div>
 
      <div id="webApp">

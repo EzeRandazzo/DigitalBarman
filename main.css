@@ -90,7 +90,7 @@ li{
 
 #cargando{
     background-color: #202020;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     z-index:1;
@@ -215,7 +215,17 @@ li{
     margin-left: 0px;
 }
 
-#alertas {
+#alertas{
+    background-color: rgb(32 32 32 / 92%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 4500 !important;
+    top: 0px;
+    padding-top: 125px;
+}
+
+.alertas {
     width: 500px !important;
     height: auto !important;
     position: fixed;

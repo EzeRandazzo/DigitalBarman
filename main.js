@@ -77,7 +77,7 @@ function verTragos() {
     let card = document.createElement(`div`);
     // Consulta las propiedades del trago
     let hayTitulo = `<h3 style="text-transform: uppercase;">${tragoCard.nombreTrago}</h3>`;
-    let hayDesc = (tragoCard.desc.length > 2) ? `<p>${tragoCard.desc}</p><hr>` : `<hr>`;
+    let hayDesc = (tragoCard.desc.length > 2) ? `<p>${tragoCard.desc}</p><hr><br>` : `<hr><br>`;
     let hayImg = `<div class="headerTrago" style="background: url(${tragoCard.imagenTrago})"></div>`;
     let hayIngredientes =   `<div style="display: flex">
                               <div class="ingredientes"><br><h4 style="text-align: left;">Ingredientes:</h4>`;
@@ -91,16 +91,18 @@ function verTragos() {
                   <img style="width: 100%; top: 0px; position: absolute;" src="${tragoCard.copaTrago}">
                   <img style="width: 100%; top: 0px;" src="/img/${hieloSRC}.png">
                   </div></div>`;
-    let botonera = `<button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" onclick="borrarCard(this)">
+    let botonera = `<br><hr><br>
+                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
                        <i class="lar la-trash-alt"></i>
                      </button>
-                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" onclick="ediarCard(this)">
+                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" >
                        EDITAR <i class="las la-pen"></i>
                      </button>`;
     //Suma las propiedades del Trago
     const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayBebidas+hayHielo+hayShaker+hayExtra+hayCierre+hayCopa+botonera;
     //Crea la Card
     card.className = `card col-md-6`;
+    card.id = `${tragoCard.nombreTrago}card`;
     card.insertAdjacentHTML ("afterbegin", ContenidoCard);
     padreVT.appendChild(card);
   }
@@ -253,6 +255,12 @@ function agregarBebida(value){
 function borrarCard(value) {
   document.getElementById(value+"card").remove();
   document.getElementById(value+"hiden").remove();
+}
+
+//Escuchar boton eliminar trago de la biblioteca
+function borrarTrago(value) {
+  document.getElementById(value+"card").remove();
+  localStorage.removeItem(value);
 }
 
 //Cambiar color bebida
