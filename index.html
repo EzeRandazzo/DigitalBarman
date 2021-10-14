@@ -26,7 +26,7 @@
             -Agregar carrito y comprar con MP
         -->
     </head>
-    <body>
+    <body>  
      <div id="cargando">
          <h1><i class="las la-cocktail logo"></i></h1><br>
          <div class="card col-md-3" id="loadingCard">
@@ -37,14 +37,23 @@
          <br>
      </div>
 
+     <div id="alertas" style="display: none !important;" class="card brillo">
+         <h2 id="tituloAlerta"></h2>
+         <br>
+         <hr>
+         <br>
+         <p id="parrafoAlerta"></p>
+         <button class="btn btn-dark" value="alertas" onclick="esconder(this.value)">Entendido <i class="las la-glass-cheers"></i></button>
+     </div>
+
      <div id="webApp">
         <div class="container">
             <h1  style="margin-top: 125px;">DIGITAL BARMAN <i class="las la-cocktail logo"></i></h1><br>
             <h2>Bienvenido al Simulador de Tragos Digital</h2>
             <br>
             <diV>
-                <button class="btn btn-dark" value="crearTrago" onclick="botonEsconder(this.value)">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
-                <button class="btn btn-dark" value="cardRecetario" onclick="botonEsconder(this.value)">VER RECETARIO <i class="las la-book-open"></i></button>
+                <button class="btn btn-dark" value="crearTrago" onclick="botonMostrar(this.value)">CREAR TRAGO <i class="las la-glass-cheers"></i></button>
+                <button class="btn btn-dark" value="cardRecetario" onclick="botonMostrar(this.value)">VER RECETARIO <i class="las la-book-open"></i></button>
             </diV>
             <br> 
             <div class="row" id="crearTrago" style="display: none !important;">

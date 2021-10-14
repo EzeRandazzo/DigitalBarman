@@ -39,7 +39,9 @@ function hacerCicloTrago() {
     localStorage.setItem(trago.nombreTrago, tragoJSON);
     
     //Informar que se creo con exito el trago
-    alert(`Trago ${trago.nombreTrago} creado con EXITO`);
+    document.getElementById("tituloAlerta").insertAdjacentHTML("afterbegin", `Felicitaciones`);
+    document.getElementById("parrafoAlerta").insertAdjacentHTML("afterbegin", `¡Trago <strong>${trago.nombreTrago}<strong> creado con exito!`);
+    $("#alertas").fadeToggle();
 }
 
 //Escuchar el Boton para imprimir los tragos
@@ -146,12 +148,15 @@ function llamadoML() {
 window.onload = llamadoML();
 
 //Usando Jquery para la botonera
-function hideAll(){
+function esconder(value){
+  $("#"+value).fadeToggle();
+}
+function esconderTodo(){
   $("#crearTrago").hide();
- $("#cardRecetario").hide();
+  $("#cardRecetario").hide();
  }
-function botonEsconder(value){
-  hideAll();
+function botonMostrar(value){
+  esconderTodo();
   $("#"+value).fadeToggle();
 }
 
