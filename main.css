@@ -12,6 +12,14 @@ h1{
     animation: tecnoLuces 5s infinite;
 }
 
+hr{
+    color: #5e5e5e;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 @keyframes tecnoLuces {
   50% {
       text-shadow: 1px 1px 30px rgb(21, 255, 0);
@@ -25,6 +33,9 @@ h2{
 }
 p{
     font-size: small;
+}
+a{
+    text-decoration: none;
 }
 button, input, optgroup, select, textarea {
     margin: 2px !important;
@@ -195,4 +206,11 @@ li{
 #copaDiv {
     width: 83%;
     margin: auto;
+    position: relative;
+}
+
+.ingredientes{
+    width: 49%;
+    position: relative;
+    margin-left: 0px;
 }

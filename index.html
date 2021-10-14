@@ -22,10 +22,8 @@
             -Agregar sort de recetas por bebidas base
             -Agregar buscador de recetas
             -Agregar paginacion de recetas
-            -Agregar imagenes a recetas
             -Agregar botones Compartir (WAPP, FB, INSTA, TW)
             -Agregar carrito y comprar con MP
-            -Hacer funcionar boton eliminar bebida del trago
         -->
     </head>
     <body>
@@ -53,7 +51,7 @@
                 <div class="card menu">
                     <h2 class="h2dark">Seleccion de Bebidas <i class="las la-wine-bottle"></i></h2><br>
                     <div style="display: inline-flex; transition: margin-left 300ms ease-in-out;" id="bebidasML"> </div>
-                    <img id="cargandoBebidas" src="/img/loading.gif" style="width: 45px;" alt="Cargando">
+                    <img id="cargandoBebidas" src="/img/loading.gif" style="width: 45px; position: absolute;" alt="Cargando">
                     <div style="margin-top: -165px; width: 100%;">
                         <button onclick="bebDer()" class="btn btn-dark btnBeb brillo" style="left: 1px; position: absolute;"> <i class="las la-chevron-left"></i> </button>
                         <button onclick="bebIzq()" class="btn btn-dark btnBeb brillo" style="right: 1px; position: absolute;"> <i class="las la-chevron-right"></i> </button>
@@ -99,7 +97,7 @@
                     <input type="text" id="extra" name="extra" placeholder="Extras (ej. Menta, rodaja o pulpa de fruta)"><br>
                     <textarea type="text" id="desc" name="desc" rows="3" placeholder="Descripcion Corta"></textarea><br>
                     <div class="ingrup">
-                    <div class="ingrup"><label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hielo" name="hielo"></div>
+                    <div class="ingrup"><label for="hielo">¿Incluir Hielo?</label><input type="checkbox" id="hieloCheck" name="hielo" onclick="hieloFunc()"></div>
                     <div class="ingrup"><label for="shaker">¿Va al Shaker/Coctelera?</label><input type="checkbox" id="shaker" name="shaker"></div>
                     </div>
                     <label>Color del trago</label><input type="color" id="colorTrago" name="colorTrago" value="#A41919" style="width: 36px !important;">
@@ -118,7 +116,8 @@
                         <br>
                         <div>                            
                             <div id="copaDiv">
-                                <img id="copa" style="width: 100%;" src="/img/copa.png">
+                                <img id="copa" style="width: 100%; top: 0px; position: absolute;" src="/img/copa.png">
+                                <img id="hieloIMG" style="width: 100%; top: 0px;" src="/img/vacio.png">
                             </div>
                         </div>
                         <br>
@@ -145,10 +144,13 @@
                     </div>
                 </div>
             </div>
-        <hr>
         <br>             
         </div>
-     </div>    
+        <div class="footer">
+            <hr>
+            <p style="color:#525252;">Desarrollado por <a href="http://randazzodesigner.com/" target="_blank"> RandazzoDesigner</a></p>
+          </div>
+     </div> 
     </body>
 
 </html>

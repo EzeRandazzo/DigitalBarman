@@ -6,7 +6,7 @@ let listaTragos = [];
 
 // objeto
 class Trago{
-    constructor(nombreTrago, bebidasTrago, imagenTrago, extra, desc, hielo, shaker, colorTrago) {
+    constructor(nombreTrago, bebidasTrago, imagenTrago, extra, desc, hielo, shaker, colorTrago, copaTrago) {
         this.nombreTrago = nombreTrago;
         this.bebidasTrago = bebidasTrago;
         this.imagenTrago = imagenTrago;
@@ -15,6 +15,7 @@ class Trago{
         this.hielo = hielo;
         this.shaker = shaker;
         this.colorTrago = colorTrago;
+        this.copaTrago = copaTrago;
     }
 }
 
@@ -30,6 +31,7 @@ function hacerCicloTrago() {
     document.getElementById("nuevoTrago").elements[3].checked,
     document.getElementById("nuevoTrago").elements[4].checked,
     document.getElementById("nuevoTrago").elements[5].value,
+    document.getElementById("copa").src,
     );
     
     //JSON y local storage del trago creado
@@ -72,27 +74,31 @@ function verTragos() {
     const tragoCard = listaTragos[e];
     let card = document.createElement(`div`);
     // Consulta las propiedades del trago
-    let hayImg = `<div class="headerTrago" style="background: url(${tragoCard.imagenTrago})"></div>`;
     let hayTitulo = `<h3 style="text-transform: uppercase;">${tragoCard.nombreTrago}</h3>`;
     let hayDesc = (tragoCard.desc.length > 2) ? `<p>${tragoCard.desc}</p><hr>` : `<hr>`;
-    let hayIngredientes =   `<br><h4>Ingredientes:</h4>`;
-    let hayBebidas = `<li> ${tragoCard.bebidasTrago}</li>`;
+    let hayImg = `<div class="headerTrago" style="background: url(${tragoCard.imagenTrago})"></div>`;
+    let hayIngredientes =   `<div style="display: flex">
+                              <div class="ingredientes"><br><h4 style="text-align: left;">Ingredientes:</h4>`;
+    let hayBebidas = `${tragoCard.bebidasTrago}`;
     let hayHielo = (tragoCard.hielo == true) ? `<li>Agregar hielo a gusto</li>` : ``;
+    let hieloSRC = (tragoCard.hielo == true) ? `hielo` : `vacio`;
     let hayShaker = (tragoCard.shaker == true) ? `<li>Vertir todo en el Shaker o Coctelera y batir</li>` : ``;
     let hayExtra = (tragoCard.extra.length > 2) ? `<li>Agregar ${tragoCard.extra}</li>` : ``;
-    let hayColor = `<li> ${tragoCard.colorTrago}</li>`;
-    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombreTrago} </b> esta listo para servir y beber</li>
-                     <br><br>
-                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" onclick="borrarCard(this)">
+    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombreTrago} </b> esta listo para servir y beber</li></div>`
+    let hayCopa = `<div style="width: 49%; height: 100%; top: 0px; position: relative; background:${tragoCard.colorTrago};">
+                  <img style="width: 100%; top: 0px; position: absolute;" src="${tragoCard.copaTrago}">
+                  <img style="width: 100%; top: 0px;" src="/img/${hieloSRC}.png">
+                  </div></div>`;
+    let botonera = `<button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" onclick="borrarCard(this)">
                        <i class="lar la-trash-alt"></i>
                      </button>
                      <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" onclick="ediarCard(this)">
                        EDITAR <i class="las la-pen"></i>
                      </button>`;
     //Suma las propiedades del Trago
-    const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayBebidas+hayHielo+hayShaker+hayExtra+hayColor+hayCierre;
+    const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayBebidas+hayHielo+hayShaker+hayExtra+hayCierre+hayCopa+botonera;
     //Crea la Card
-    card.className = `card col-6`;
+    card.className = `card col-md-6`;
     card.insertAdjacentHTML ("afterbegin", ContenidoCard);
     padreVT.appendChild(card);
   }
@@ -165,6 +171,17 @@ function tipoContenedor(value){
   document.getElementById("copa").src = value;
 }
 
+//Escuchar input hielo para mostrar imagen
+function hieloFunc()
+{
+  if (document.getElementById("hieloCheck").checked) 
+  {
+    document.getElementById("hieloIMG").src = "/img/hielo.png";
+  } else {
+    document.getElementById("hieloIMG").src = "/img/vacio.png";
+  }
+}
+
 //Escuchar los botones para mover los productos
 let pos = 0;
 function bebIzq() {
@@ -235,7 +252,7 @@ function borrarCard(value) {
 
 //Cambiar color bebida
 let colorTrago = document.getElementById("colorTrago");
-let liquido = document.getElementById("copa");
+let liquido = document.getElementById("copaDiv");
 colorTrago.addEventListener("change", function(){
    liquido.style.backgroundColor = this.value; 
 })
