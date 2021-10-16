@@ -6,9 +6,10 @@ let listaTragos = [];
 
 // objeto
 class Trago{
-    constructor(nombreTrago, bebidasTrago, imagenTrago, extra, desc, hielo, shaker, colorTrago, copaTrago) {
+    constructor(nombreTrago, bebidasTrago, bebidaCategoria, imagenTrago, extra, desc, hielo, shaker, colorTrago, copaTrago) {
         this.nombreTrago = nombreTrago;
         this.bebidasTrago = bebidasTrago;
+        this.bebidaCategoria = bebidaCategoria;
         this.imagenTrago = imagenTrago;
         this.extra = extra;
         this.desc = desc;
@@ -25,6 +26,7 @@ function hacerCicloTrago() {
   const  trago = new Trago (
     document.getElementById("nuevoTragoTitulo").elements[0].value,
     document.getElementById("bebidasTragoInfo").innerHTML,
+    document.getElementById("categoriaBebida").innerHTML,
     document.getElementById("nuevoTrago").elements[0].value,
     document.getElementById("nuevoTrago").elements[1].value,
     document.getElementById("nuevoTrago").elements[2].value,
@@ -86,18 +88,20 @@ function verTragos() {
     let hieloSRC = (tragoCard.hielo == true) ? `hielo` : `vacio`;
     let hayShaker = (tragoCard.shaker == true) ? `<li>Vertir todo en el Shaker o Coctelera y batir</li>` : ``;
     let hayExtra = (tragoCard.extra.length > 2) ? `<li>Agregar ${tragoCard.extra}</li>` : ``;
-    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombreTrago} </b> esta listo para servir y beber</li></div>`
+    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombreTrago} </b> esta listo para servir y beber</li></div>`;
     let hayCopa = `<div style="width: 49%; height: 100%; top: 0px; position: relative; background:${tragoCard.colorTrago};">
                   <img style="width: 100%; top: 0px; position: absolute;" src="${tragoCard.copaTrago}">
                   <img style="width: 100%; top: 0px;" src="/img/${hieloSRC}.png">
                   </div></div>`;
-    let botonera = `<br><hr><br>
-                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
+    let botonera = `<br>
+                    <p>Categorias: ${tragoCard.bebidaCategoria}</p>
+                    <hr><br>
+                    <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
                        <i class="lar la-trash-alt"></i>
-                     </button>
-                     <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" >
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" >
                        EDITAR <i class="las la-pen"></i>
-                     </button>`;
+                    </button>`;
     //Suma las propiedades del Trago
     const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayBebidas+hayHielo+hayShaker+hayExtra+hayCierre+hayCopa+botonera;
     //Crea la Card
@@ -204,9 +208,12 @@ function bebDer() {
 let idBebidaElegida = "";
 let cardBebidaElegida = "";
 let cardBebidaElegidaJSON = "";
+let cardBebidaCategoriaJSON = "";
 let datosBeb = "";
 let padreTragoB = document.getElementById("bebidasTrago");
 let padreTragoB2 = document.getElementById("bebidasTragoInfo");
+let padreTragoB3 = document.getElementById("categoriaBebida");
+
 
 function agregarAlTrago() {
   let url = "https://api.mercadolibre.com/items/"+idBebidaElegida;
@@ -238,9 +245,12 @@ function agregarAlTrago() {
     cardBebidaElegida = "";
   }
   function bebidaParaTragoJSON(datosBeb){
-    cardBebidaElegidaJSON += `<li id="${datosBeb.id}hiden">${datosBeb.title}</li>` ;
+    cardBebidaElegidaJSON += `<li id="${datosBeb.id}hiden">${datosBeb.title}</li>`;
+    cardBebidaCategoriaJSON += `<li id="${datosBeb.id}categoria">${eleccionBebidas}</li>`;
     padreTragoB2.insertAdjacentHTML("afterbegin", cardBebidaElegidaJSON);
+    padreTragoB3.insertAdjacentHTML("afterbegin", cardBebidaCategoriaJSON);
     cardBebidaElegidaJSON = "";
+    cardBebidaCategoriaJSON = " ";
     datosBeb = "";
   }
 }
@@ -255,6 +265,7 @@ function agregarBebida(value){
 function borrarCard(value) {
   document.getElementById(value+"card").remove();
   document.getElementById(value+"hiden").remove();
+  document.getElementById(value+"categoria").remove();
 }
 
 //Escuchar boton eliminar trago de la biblioteca
