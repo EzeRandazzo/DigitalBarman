@@ -39,7 +39,7 @@
      </div>
 
      <div id="alertas" style="display: none !important;">
-        <div class="card brillo alertas"> 
+        <div id="cajaAlerta" class="card brillo alertas"> 
             <h2 id="tituloAlerta"></h2>
             <br><hr><br>
             <p id="parrafoAlerta"></p>
@@ -98,11 +98,9 @@
                  <div class="card brillo">
                  <h2>Crear nuevo Trago <i class="las la-glass-cheers"></i></h2><br>
                  <form id="nuevoTragoTitulo" >
-                    <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago"><br>
+                    <input type="text" id="nombreTrago" name="nombreTrago" placeholder="Nombre del Trago" required><br>
                 </form>
                     <div id="bebidasTrago"></div>
-                    <div id="bebidasTragoInfo" style="display: none"></div>
-                    <div id="categoriaBebida" style="display: none"></div>
                 <form id="nuevoTrago" >
                     <input type="text" id="imagenTrago" name="imagenTrago" placeholder="URL de la imagen del trago"><br>
                     <input type="text" id="extra" name="extra" placeholder="Extras (ej. Menta, rodaja o pulpa de fruta)"><br>
@@ -114,7 +112,8 @@
                     <label>Color del trago</label><input type="color" id="colorTrago" name="colorTrago" value="#A41919" style="width: 36px !important;">
                     <br>
                     <br><p>*Cargue los datos de su trago y presione el boton "Crear Trago"</p><br>
-                    <input class="btn btn-light" type="button" onclick="hacerCicloTrago()" value="Guardar TRAGO">
+                    <input class="btn btn-success" type="button" onclick="hacerCicloTrago()" value="Guardar TRAGO">
+                    <button class="btn btn-outline-danger" type="button" onclick="resetTrago()">Reset <i class="las la-recycle"></i></button>
                   </form>
                   </div>
                   <br><br>
@@ -149,6 +148,7 @@
                     <div class="card">
                         <h2>Recetario <i class="las la-book-open"></i></h2>
                         <br><br>
+                        <div id="botonesCategorias"></div>
                         <button class="btn btn-light" id="verTragoBTN">VER TRAGO/S</button>
                         <br><br>
                         <div id="tragosImprimir" class="row"></div>

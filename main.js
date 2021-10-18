@@ -1,10 +1,10 @@
 //Llamar funcion para pantalla cargando
 window.onload = loading();
 
-//Array
+//Array lista de Tragos
 let listaTragos = [];
 
-// objeto
+// objeto Trago
 class Trago{
     constructor(nombreTrago, bebidasTrago, bebidaCategoria, imagenTrago, extra, desc, hielo, shaker, colorTrago, copaTrago) {
         this.nombreTrago = nombreTrago;
@@ -20,13 +20,22 @@ class Trago{
     }
 }
 
-// Ciclo for
+// Ciclo for para Crear un Trago
 function hacerCicloTrago() {
+  if (document.getElementById("nombreTrago").value === ''){
+    //Informar Fallo
+    document.getElementById("tituloAlerta").innerHTML = `ERROR`;
+    document.getElementById("parrafoAlerta").innerHTML = `Falta completar campos`;
+    document.getElementById("cajaAlerta").classList.replace('brillo', 'brilloRojo');
+
+    //Mostrar cartel de falla
+    $("#alertas").fadeToggle();
+    } else {
   // Entrar info
   const  trago = new Trago (
     document.getElementById("nuevoTragoTitulo").elements[0].value,
-    document.getElementById("bebidasTragoInfo").innerHTML,
-    document.getElementById("categoriaBebida").innerHTML,
+    JSON.stringify(cardBebidaElegidaJSON),
+    JSON.stringify(cardBebidaCategoriaJSON),
     document.getElementById("nuevoTrago").elements[0].value,
     document.getElementById("nuevoTrago").elements[1].value,
     document.getElementById("nuevoTrago").elements[2].value,
@@ -39,11 +48,18 @@ function hacerCicloTrago() {
     //JSON y local storage del trago creado
     const tragoJSON = JSON.stringify(trago);
     localStorage.setItem(trago.nombreTrago, tragoJSON);
-    
+
     //Informar que se creo con exito el trago
-    document.getElementById("tituloAlerta").insertAdjacentHTML("afterbegin", `Felicitaciones`);
-    document.getElementById("parrafoAlerta").insertAdjacentHTML("afterbegin", `¡Trago <strong>${trago.nombreTrago}<strong> creado con exito!`);
+    document.getElementById("tituloAlerta").innerHTML = `Felicitaciones`;
+    document.getElementById("parrafoAlerta").innerHTML = `¡Trago <strong>${trago.nombreTrago}</strong> creado con exito!`;
+    document.getElementById("cajaAlerta").classList.replace('brilloRojo', 'brillo');
+
+    //limpiar formulario de creacion de trago
+    resetTrago();
+
+    //animacion mostrar cartel de exito
     $("#alertas").fadeToggle();
+  }
 }
 
 //Escuchar el Boton para imprimir los tragos
@@ -52,6 +68,7 @@ document.getElementById("verTragoBTN").addEventListener("click", verTragos);
 function verTragos() {
   //Obtenemos el nodo donde vamos a agregar los nuevos elementos
   let padreVT = document.getElementById("tragosImprimir");
+  //Iniciamos ciclo para mostrar los tragos en Local Storege
   while (padreVT.firstChild) {
     padreVT.removeChild(padreVT.firstChild);
   }
@@ -81,29 +98,41 @@ function verTragos() {
     let hayTitulo = `<h3 style="text-transform: uppercase;">${tragoCard.nombreTrago}</h3>`;
     let hayDesc = (tragoCard.desc.length > 2) ? `<p>${tragoCard.desc}</p><hr><br>` : `<hr><br>`;
     let hayImg = `<div class="headerTrago" style="background: url(${tragoCard.imagenTrago})"></div>`;
+    // Recorre Bebidas del trago
+    let lecturaBebidas = "";
+    let hayBebidas = JSON.parse(tragoCard.bebidasTrago);
+    for (let i in hayBebidas) {lecturaBebidas += `<li>${hayBebidas[i]}</li>`;}
+    console.log(lecturaBebidas);
     let hayIngredientes =   `<div style="display: flex">
-                              <div class="ingredientes"><br><h4 style="text-align: left;">Ingredientes:</h4>`;
-    let hayBebidas = `${tragoCard.bebidasTrago}`;
+                             <div class="ingredientes"><br><h4 style="text-align: left;">Receta:</h4>
+                             <ul>${lecturaBebidas}`;
+    // Recorre Categorias del trago
+    let lecturaCategoria = "";
+    let hayCategoria = JSON.parse(tragoCard.bebidaCategoria);
+    for (let i in hayCategoria) {lecturaCategoria += `${hayCategoria[i]}, `;}
+    // Consulta hielo
     let hayHielo = (tragoCard.hielo == true) ? `<li>Agregar hielo a gusto</li>` : ``;
     let hieloSRC = (tragoCard.hielo == true) ? `hielo` : `vacio`;
+    // Mas consultas a las propiedades del trago y armado de la card 
     let hayShaker = (tragoCard.shaker == true) ? `<li>Vertir todo en el Shaker o Coctelera y batir</li>` : ``;
     let hayExtra = (tragoCard.extra.length > 2) ? `<li>Agregar ${tragoCard.extra}</li>` : ``;
-    let hayCierre = `<li>¡Listo! El trago ${tragoCard.nombreTrago} </b> esta listo para servir y beber</li></div>`;
+    let hayCierre = `<li>¡Listo! El trago <strong>${tragoCard.nombreTrago}</strong> esta listo para servir y beber</li></ul>
+                     <br>
+                     <p>Categorias: ${lecturaCategoria} </p></div>`;
+    //simulacion del trago
     let hayCopa = `<div style="width: 49%; height: 100%; top: 0px; position: relative; background:${tragoCard.colorTrago};">
                   <img style="width: 100%; top: 0px; position: absolute;" src="${tragoCard.copaTrago}">
                   <img style="width: 100%; top: 0px;" src="/img/${hieloSRC}.png">
                   </div></div>`;
-    let botonera = `<br>
-                    <p>Categorias: ${tragoCard.bebidaCategoria}</p>
-                    <hr><br>
-                    <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
+    let botonera = `<hr><br>
+                    <button class="btn btn-outline-danger btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
                        <i class="lar la-trash-alt"></i>
                     </button>
-                    <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important;" >
+                    <button class="btn btn-outline-secondary btn-sm" style="margin: 10px !important; display: none !important;" >
                        EDITAR <i class="las la-pen"></i>
                     </button>`;
     //Suma las propiedades del Trago
-    const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayBebidas+hayHielo+hayShaker+hayExtra+hayCierre+hayCopa+botonera;
+    const ContenidoCard = hayTitulo+hayDesc+hayImg+hayIngredientes+hayHielo+hayShaker+hayExtra+hayCierre+hayCopa+botonera;
     //Crea la Card
     card.className = `card col-md-6`;
     card.id = `${tragoCard.nombreTrago}card`;
@@ -166,6 +195,7 @@ function botonMostrar(value){
   $("#"+value).fadeToggle();
 }
 
+
 //Escuchar la categoria de bebidas a mostrar
 function tipoBebida(value){
   eleccionBebidas = value;
@@ -207,13 +237,10 @@ function bebDer() {
 //Agregar bebida al trago
 let idBebidaElegida = "";
 let cardBebidaElegida = "";
-let cardBebidaElegidaJSON = "";
-let cardBebidaCategoriaJSON = "";
+let cardBebidaElegidaJSON = [];
+let cardBebidaCategoriaJSON = [];
 let datosBeb = "";
 let padreTragoB = document.getElementById("bebidasTrago");
-let padreTragoB2 = document.getElementById("bebidasTragoInfo");
-let padreTragoB3 = document.getElementById("categoriaBebida");
-
 
 function agregarAlTrago() {
   let url = "https://api.mercadolibre.com/items/"+idBebidaElegida;
@@ -245,14 +272,18 @@ function agregarAlTrago() {
     cardBebidaElegida = "";
   }
   function bebidaParaTragoJSON(datosBeb){
-    cardBebidaElegidaJSON += `<li id="${datosBeb.id}hiden">${datosBeb.title}</li>`;
-    cardBebidaCategoriaJSON += `<li id="${datosBeb.id}categoria">${eleccionBebidas}</li>`;
-    padreTragoB2.insertAdjacentHTML("afterbegin", cardBebidaElegidaJSON);
-    padreTragoB3.insertAdjacentHTML("afterbegin", cardBebidaCategoriaJSON);
-    cardBebidaElegidaJSON = "";
-    cardBebidaCategoriaJSON = " ";
+    cardBebidaElegidaJSON.push(datosBeb.title);
+    cardBebidaCategoriaJSON.push(eleccionBebidas);
     datosBeb = "";
   }
+}
+
+//Escuchar boton Reset del Trago
+function resetTrago(){
+  document.getElementById("nuevoTragoTitulo").reset();
+  document.getElementById("nuevoTrago").reset();
+  document.getElementById("bebidasTrago").querySelectorAll('*').forEach(n => n.remove());
+  cardBebidaCategoriaJSON = [];
 }
 
 //Escuchar boton + Agregar bebida al trago
@@ -264,8 +295,6 @@ function agregarBebida(value){
 //Escuchar boton eliminar bebida del trago
 function borrarCard(value) {
   document.getElementById(value+"card").remove();
-  document.getElementById(value+"hiden").remove();
-  document.getElementById(value+"categoria").remove();
 }
 
 //Escuchar boton eliminar trago de la biblioteca
@@ -280,3 +309,16 @@ let liquido = document.getElementById("copaDiv");
 colorTrago.addEventListener("change", function(){
    liquido.style.backgroundColor = this.value; 
 })
+
+
+
+// //Mostrar categorias del recetario
+// function mostrarCategorias() {
+//   // Recorre Categorias del trago
+//   let lecturaCategoria = "";
+//   let hayCategoria = JSON.parse(tragoCard.bebidaCategoria);
+//   for (let i in hayCategoria) {
+//     lecturaCategoria += `<button class="btn btn-light" value="${hayCategoria[i]}">${hayCategoria[i]}</button>`;
+//   };
+//   document.getElementById("botonesCategorias").insertAdjacentHTML("afterbegin", lecturaCategoria);
+// }

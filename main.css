@@ -80,6 +80,9 @@ li{
 .brillo{
     box-shadow: rgb(0 140 255 / 42%) 0 1px 10px;
 }
+.brilloRojo{
+box-shadow: rgb(255 0 0 / 42%) 0 1px 10px;
+}
 .hidden {
     display: none !important
 }
