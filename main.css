@@ -158,7 +158,7 @@ box-shadow: rgb(255 0 0 / 42%) 0 1px 10px;
 
 .menu{
     overflow: hidden;
-    background-image: url(/img/textura_madera.jpg);
+    background-image: url(img/textura_madera.jpg);
     background-size: cover;
 }
 .bebidaAgregada{

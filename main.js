@@ -122,7 +122,7 @@ function verTragos() {
     //simulacion del trago
     let hayCopa = `<div style="width: 49%; height: 100%; top: 0px; position: relative; background:${tragoCard.colorTrago};">
                   <img style="width: 100%; top: 0px; position: absolute;" src="${tragoCard.copaTrago}">
-                  <img style="width: 100%; top: 0px;" src="/img/${hieloSRC}.png">
+                  <img style="width: 100%; top: 0px;" src="img/${hieloSRC}.png">
                   </div></div>`;
     let botonera = `<hr><br>
                     <button class="btn btn-outline-danger btn-sm" style="margin: 10px !important;" value="${tragoCard.nombreTrago}" onclick="borrarTrago(this.value)">
@@ -217,9 +217,9 @@ function hieloFunc()
 {
   if (document.getElementById("hieloCheck").checked) 
   {
-    document.getElementById("hieloIMG").src = "/img/hielo.png";
+    document.getElementById("hieloIMG").src = "img/hielo.png";
   } else {
-    document.getElementById("hieloIMG").src = "/img/vacio.png";
+    document.getElementById("hieloIMG").src = "img/vacio.png";
   }
 }
 
